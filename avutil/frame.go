@@ -17,7 +17,7 @@ type (
 	AvBuffer            C.struct_AVBuffer
 	AvBufferRef         C.struct_AVBufferRef
 	AvBufferPool        C.struct_AVBufferPool
-	Frame               C.struct_AVFrame
+//	Frame               C.struct_AVFrame
 	AvFrameSideData     C.struct_AVFrameSideData
 	AvFrameSideDataType C.enum_AVFrameSideDataType
 )
@@ -56,7 +56,7 @@ func AvFrameRef(d, s *Frame) int {
 
 //Create a new frame that references the same data as src.
 func AvFrameClone(f *Frame) *Frame {
-	return (*Frame)(C.av_frame_clone((*C.struct_AVFrame)(unsafe.Pointer(f))))
+	return (*Frame)(unsafe.Pointer(C.av_frame_clone((*C.struct_AVFrame)(unsafe.Pointer(f)))))
 }
 
 //Unreference all the buffers referenced by frame and reset the frame fields.
@@ -87,23 +87,23 @@ func AvFrameCopyProps(d, s *Frame) int {
 
 //Get the buffer reference a given data plane is stored in.
 func AvFrameGetPlaneBuffer(f *Frame, p int) *AvBufferRef {
-	return (*AvBufferRef)(C.av_frame_get_plane_buffer((*C.struct_AVFrame)(unsafe.Pointer(f)), C.int(p)))
+	return (*AvBufferRef)(unsafe.Pointer(C.av_frame_get_plane_buffer((*C.struct_AVFrame)(unsafe.Pointer(f)), C.int(p))))
 }
 
 //Add a new side data to a frame.
 func AvFrameNewSideData(f *Frame, d AvFrameSideDataType, s int) *AvFrameSideData {
-	return (*AvFrameSideData)(C.av_frame_new_side_data((*C.struct_AVFrame)(unsafe.Pointer(f)), (C.enum_AVFrameSideDataType)(d), C.int(s)))
+	return (*AvFrameSideData)(unsafe.Pointer(C.av_frame_new_side_data((*C.struct_AVFrame)(unsafe.Pointer(f)), (C.enum_AVFrameSideDataType)(d), C.int(s))))
 }
 
 func AvFrameGetSideData(f *Frame, t AvFrameSideDataType) *AvFrameSideData {
-	return (*AvFrameSideData)(C.av_frame_get_side_data((*C.struct_AVFrame)(unsafe.Pointer(f)), (C.enum_AVFrameSideDataType)(t)))
+	return (*AvFrameSideData)(unsafe.Pointer(C.av_frame_get_side_data((*C.struct_AVFrame)(unsafe.Pointer(f)), (C.enum_AVFrameSideDataType)(t))))
 }
 
 func Data(f *Frame) *uint8 {
-	return (*uint8)(unsafe.Pointer((*C.uint8_t)(unsafe.Pointer(&f.data))))
+	return (*uint8)(unsafe.Pointer((*C.uint8_t)(unsafe.Pointer(&f.Data))))
 }
 func Linesize(f *Frame) int {
-	return int(*(*C.int)(unsafe.Pointer(&f.linesize)))
+	return int(*(*C.int)(unsafe.Pointer(&f.Linesize)))
 }
 
 // //static int get_video_buffer (Frame *frame, int align)
