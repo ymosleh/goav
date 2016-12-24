@@ -21,7 +21,7 @@ import (
 
 type (
 	Codec                         C.struct_AVCodec
-	Context                       C.struct_AVCodecContext
+//	Context                       C.struct_AVCodecContext
 	Descriptor                    C.struct_AVCodecDescriptor
 	Parser                        C.struct_AVCodecParser
 	ParserContext                 C.struct_AVCodecParserContext
@@ -77,7 +77,7 @@ func (c *Codec) AvGetProfileName(p int) string {
 
 //Allocate an Context and set its fields to default values.
 func (c *Codec) AvcodecAllocContext3() *Context {
-	return (*Context)(C.avcodec_alloc_context3((*C.struct_AVCodec)(c)))
+	return (*Context)(unsafe.Pointer(C.avcodec_alloc_context3((*C.struct_AVCodec)(c))))
 }
 
 func (c *Codec) AvCodecIsEncoder() int {
@@ -180,7 +180,7 @@ func AvGetCodecTagString(b string, bf uintptr, c uint) uintptr {
 }
 
 func AvcodecString(b string, bs int, ctxt *Context, e int) {
-	C.avcodec_string(C.CString(b), C.int(bs), (*C.struct_AVCodecContext)(ctxt), C.int(e))
+	C.avcodec_string(C.CString(b), C.int(bs), (*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), C.int(e))
 }
 
 //Fill Frame audio data and linesize pointers.
