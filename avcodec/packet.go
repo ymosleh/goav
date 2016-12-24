@@ -10,6 +10,10 @@ import (
 	"unsafe"
 )
 
+func AvPacketAlloc() (*Packet) {
+	return (*Packet)(C.av_packet_alloc());
+}
+
 //Initialize optional fields of a packet with default values.
 func (p *Packet) AvInitPacket() {
 	C.av_init_packet((*C.struct_AVPacket)(p))
