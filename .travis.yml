@@ -4,7 +4,7 @@ go:
   - 1.7.x
 
 before_install:
-  - sudo add-apt-repository ppa:kirillshkrogalev/ffmpeg-next
+  - sudo add-apt-repository ppa:kirillshkrogalev/ffmpeg-next -y
   - sudo apt-get -qq update
   - sudo apt-get install -y libswscale-ffmpeg-dev libavcodec-ffmpeg-dev libavutil-ffmpeg-dev \
                           libavformat-ffmpeg-dev libavfilter-ffmpeg-dev libavdevice-ffmpeg-dev \
