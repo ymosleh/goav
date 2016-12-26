@@ -9,7 +9,4 @@ go:
 before_install:
   - sudo add-apt-repository ppa:kirillshkrogalev/ffmpeg-next -y
   - sudo apt-get -qq update
-  - apt-cache search ffmpeg
-  - sudo apt-get install -y libswscale-ffmpeg-dev libavcodec-ffmpeg-dev libavutil-ffmpeg-dev \
-                          libavformat-ffmpeg-dev libavfilter-ffmpeg-dev libavdevice-ffmpeg-dev \
-                          libswresample-ffmpeg-dev
+  - sudo apt-get install -y libswscale-ffmpeg-dev libavcodec-ffmpeg-dev libavutil-ffmpeg-dev libavformat-ffmpeg-dev libavfilter-ffmpeg-dev libavdevice-ffmpeg-dev libswresample-ffmpeg-dev
