@@ -13,6 +13,7 @@ before_install:
 
 # Don't "go get" otherwise it will try to install itself
 install:
+  - go get -x -t ./...
 
-script:
-  - go build example/versions.go
+#script:
+#  - go build example/versions.go
