@@ -9,7 +9,7 @@ go:
 before_install:
   - sudo add-apt-repository ppa:mc3man/trusty-media -y
   - sudo apt-get -qq update
-  - sudo apt-get install -y ffmpeg
+  - sudo apt-get install -y libswscale-dev libavcodec-dev libavutil-dev libavformat-dev libavfilter-dev libavdevice-dev libswresample-dev
 
 #  - sudo apt-get install -y libswscale-ffmpeg-dev libavcodec-ffmpeg-dev libavutil-ffmpeg-dev libavformat-ffmpeg-dev libavfilter-ffmpeg-dev libavdevice-ffmpeg-dev libswresample-ffmpeg-dev
 
