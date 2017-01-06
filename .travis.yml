@@ -7,9 +7,11 @@ go:
   - 1.7.x
 
 before_install:
-  - sudo add-apt-repository ppa:kirillshkrogalev/ffmpeg-next -y
+  - sudo add-apt-repository ppa:mc3man/trusty-media -y
   - sudo apt-get -qq update
-  - sudo apt-get install -y libswscale-ffmpeg-dev libavcodec-ffmpeg-dev libavutil-ffmpeg-dev libavformat-ffmpeg-dev libavfilter-ffmpeg-dev libavdevice-ffmpeg-dev libswresample-ffmpeg-dev
+  - sudo apt-get install -y ffmpeg
+
+#  - sudo apt-get install -y libswscale-ffmpeg-dev libavcodec-ffmpeg-dev libavutil-ffmpeg-dev libavformat-ffmpeg-dev libavfilter-ffmpeg-dev libavdevice-ffmpeg-dev libswresample-ffmpeg-dev
 
 # Don't "go get" otherwise it will try to install itself
 install:
