@@ -1,11 +1,10 @@
 # goav
-Golang binding for FFmpeg.   Forked from [here](https://github.com/giorgisio/goav)
+Golang binding for FFmpeg 3.2.xx.   Forked from [here](https://github.com/giorgisio/goav)
 
 A binding to the ffmpeg video/audio manipulation library.   It's incomplete but I am able to [decode frames of ProRes](https://github.com/amarburg/go-prores-ffmpeg/).
 
 [![GoDoc](https://godoc.org/github.com/amarburg/goav?status.svg)](https://godoc.org/github.com/amarburg/goav)
-
-[![Travis CI](https://travis-ci.org/amarburg/goav.svg?branch=master)](https://travis-ci.org/amarburg/goav)
+[![wercker status](https://app.wercker.com/status/71ef12ee7449b3b00c0401ed5784ff52/s/master "wercker status")](https://app.wercker.com/project/byKey/71ef12ee7449b3b00c0401ed5784ff52)
 
 ## Usage
 
