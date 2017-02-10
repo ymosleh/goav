@@ -10,8 +10,8 @@ import (
 	"unsafe"
 )
 
-func AvPacketAlloc() (*Packet) {
-	return (*Packet)(C.av_packet_alloc());
+func AvPacketAlloc() *Packet {
+	return (*Packet)(C.av_packet_alloc())
 }
 
 //Initialize optional fields of a packet with default values.
@@ -37,13 +37,21 @@ func (p *Packet) AvGrowPacket(s int) int {
 //Initialize a reference-counted packet from av_malloc()ed data.
 func (p *Packet) AvPacketFromData(d *uint8, s int) int {
 	return int(C.av_packet_from_data((*C.struct_AVPacket)(p), (*C.uint8_t)(d), C.int(s)))
-
 }
 
-func (p *Packet) AvDupPacket() int {
-	return int(C.av_dup_packet((*C.struct_AVPacket)(p)))
-
+// By definition this needs to perform a byte copy.   libav takes ownership
+// of the buf and frees it when the AvPacket is freed
+func (p *Packet) AvPacketFromByteSlice(buf []byte) int {
+	ptr := C.malloc(C.size_t(len(buf)))
+	cBuf := (*[1 << 30]byte)(ptr)
+	copy(cBuf[:], buf)
+	return p.AvPacketFromData((*uint8)(unsafe.Pointer(ptr)), len(buf))
 }
+
+// This has been deprecated in ffmpeg
+// func (p *Packet) AvDupPacket() int {
+// 	return int(C.av_dup_packet((*C.struct_AVPacket)(p)))
+// }
 
 //Copy packet, including contents.
 func (p *Packet) AvCopyPacket(r *Packet) int {
@@ -58,9 +66,9 @@ func (p *Packet) AvCopyPacketSideData(r *Packet) int {
 }
 
 //Free a packet.
-func (p *Packet) AvFreePacket() {
-	C.av_free_packet((*C.struct_AVPacket)(p))
-
+func AvPacketFree(p *Packet) {
+	var ptr *C.struct_AVPacket = (*C.struct_AVPacket)(p)
+	C.av_packet_free((**C.struct_AVPacket)(&ptr))
 }
 
 //Allocate new information of a packet.
