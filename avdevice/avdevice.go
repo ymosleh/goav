@@ -14,6 +14,8 @@ package avdevice
 import "C"
 import (
 	"unsafe"
+
+	"github.com/ioblank/goav/avutil"
 )
 
 type (
@@ -24,7 +26,6 @@ type (
 	InputFormat               C.struct_AVInputFormat
 	OutputFormat              C.struct_AVOutputFormat
 	AvFormatContext           C.struct_AVFormatContext
-	Dictionary                C.struct_AVDictionary
 	AvAppToDevMessageType     C.enum_AVAppToDevMessageType
 	AvDevToAppMessageType     C.enum_AVDevToAppMessageType
 )
@@ -60,7 +61,7 @@ func AvdeviceDevToAppControlMessage(fcxt *AvFormatContext, m AvDevToAppMessageTy
 }
 
 //Initialize capabilities probing API based on AvOption API.
-func AvdeviceCapabilitiesCreate(c **AvDeviceCapabilitiesQuery, s *AvFormatContext, d **Dictionary) int {
+func AvdeviceCapabilitiesCreate(c **AvDeviceCapabilitiesQuery, s *AvFormatContext, d **avutil.Dictionary) int {
 	return int(C.avdevice_capabilities_create((**C.struct_AVDeviceCapabilitiesQuery)(unsafe.Pointer(c)), (*C.struct_AVFormatContext)(s), (**C.struct_AVDictionary)(unsafe.Pointer(d))))
 }
 
@@ -81,11 +82,11 @@ func AvdeviceFreeListDevices(d **AvDeviceInfoList) {
 
 // //int 	avdevice_list_input_sources (struct InputFormat *device, const char *device_name, Dictionary *device_options, AvDeviceInfoList **device_list)
 // //List devices.
-// func AvdeviceListInputSources(d *InputFormat, dv string, do *Dictionary, dl **AvDeviceInfoList) int {
+// func AvdeviceListInputSources(d *InputFormat, dv string, do *avutil.Dictionary, dl **AvDeviceInfoList) int {
 // 	return int(C.avdevice_list_input_sources((*C.struct_AVInputFormat)(d), C.CString(dv), (*C.struct_AVDictionary)(do), (**C.struct_AVDeviceInfoList)(unsafe.Pointer(dl))))
 // }
 
 // //int 	avdevice_list_output_sinks (struct OutputFormat *device, const char *device_name, Dictionary *device_options, AvDeviceInfoList **device_list)
-// func AvdeviceListOutputSinks(d *OutputFormat, dn string, di *Dictionary, dl **AvDeviceInfoList) int {
+// func AvdeviceListOutputSinks(d *OutputFormat, dn string, di *avutil.Dictionary, dl **AvDeviceInfoList) int {
 // 	return int(C.avdevice_list_output_sinks((*C.struct_AVOutputFormat)(d), C.CString(dn), (*C.struct_AVDictionary)(di), (**C.struct_AVDeviceInfoList)(unsafe.Pointer(dl))))
 // }

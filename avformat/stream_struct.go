@@ -8,13 +8,15 @@ package avformat
 import "C"
 import (
 	"unsafe"
+
+	"github.com/ioblank/goav/avutil"
 )
 
 func (avs *Stream) Codec() *CodecContext {
 	return (*CodecContext)(unsafe.Pointer(avs.codec))
 }
 
-func (avs *Stream) Metadata() *Dictionary {
+func (avs *Stream) Metadata() *avutil.Dictionary {
 	return (*Dictionary)(unsafe.Pointer(avs.metadata))
 }
 

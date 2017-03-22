@@ -13,18 +13,19 @@ package avfilter
 import "C"
 import (
 	"unsafe"
+
+	"github.com/ioblank/goav/avutil"
 )
 
 type (
-	Filter     C.struct_AVFilter
-	Context    C.struct_AVFilterContext
-	Link       C.struct_AVFilterLink
-	Graph      C.struct_AVFilterGraph
-	Input      C.struct_AVFilterInOut
-	Pad        C.struct_AVFilterPad
-	Dictionary C.struct_AVDictionary
-	Class      C.struct_AVClass
-	MediaType  C.enum_AVMediaType
+	Filter    C.struct_AVFilter
+	Context   C.struct_AVFilterContext
+	Link      C.struct_AVFilterLink
+	Graph     C.struct_AVFilterGraph
+	Input     C.struct_AVFilterInOut
+	Pad       C.struct_AVFilterPad
+	Class     C.struct_AVClass
+	MediaType C.enum_AVMediaType
 )
 
 //Return the LIBAvFILTER_VERSION_INT constant.
@@ -98,7 +99,7 @@ func (ctx *Context) AvfilterInitStr(args string) int {
 }
 
 //Initialize a filter with the supplied dictionary of options.
-func (ctx *Context) AvfilterInitDict(o **Dictionary) int {
+func (ctx *Context) AvfilterInitDict(o **avutil.Dictionary) int {
 	return int(C.avfilter_init_dict((*C.struct_AVFilterContext)(ctx), (**C.struct_AVDictionary)(unsafe.Pointer(o))))
 }
 

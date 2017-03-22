@@ -8,6 +8,8 @@ package avformat
 import "C"
 import (
 	"unsafe"
+
+	"github.com/ioblank/goav/avutil"
 )
 
 func (ctxt *Context) Chapters() **AvChapter {
@@ -26,7 +28,7 @@ func (ctxt *Context) VideoCodec() *AvCodec {
 	return (*AvCodec)(unsafe.Pointer(ctxt.video_codec))
 }
 
-func (ctxt *Context) Metadata() *Dictionary {
+func (ctxt *Context) Metadata() *avutil.Dictionary {
 	return (*Dictionary)(unsafe.Pointer(ctxt.metadata))
 }
 

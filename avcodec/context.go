@@ -8,6 +8,8 @@ package avcodec
 import "C"
 import (
 	"unsafe"
+
+	"github.com/ioblank/goav/avutil"
 )
 
 func (ctxt *Context) AvCodecGetPktTimebase() Rational {
@@ -51,7 +53,7 @@ func (ctxt *Context) AvCodecSetChromaIntraMatrix(t *uint16) {
 }
 
 //Free the codec context and everything associated with it and write NULL to the provided pointer.
-func AvcodecFreeContext( ctxt *Context ) {
+func AvcodecFreeContext(ctxt *Context) {
 	var ptr *C.struct_AVCodecContext = (*C.struct_AVCodecContext)(unsafe.Pointer(ctxt))
 	C.avcodec_free_context((**C.struct_AVCodecContext)(&ptr))
 
@@ -69,7 +71,7 @@ func (ctxt *Context) AvcodecCopyContext(ctxt2 *Context) int {
 }
 
 //Initialize the Context to use the given Codec
-func (ctxt *Context) AvcodecOpen2(c *Codec, d **Dictionary) int {
+func (ctxt *Context) AvcodecOpen2(c *Codec, d **avutil.Dictionary) int {
 	return int(C.avcodec_open2((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (*C.struct_AVCodec)(c), (**C.struct_AVDictionary)(unsafe.Pointer(d))))
 }
 

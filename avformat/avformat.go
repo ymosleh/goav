@@ -20,6 +20,8 @@ package avformat
 import "C"
 import (
 	"unsafe"
+
+	"github.com/ioblank/goav/avutil"
 )
 
 type (
@@ -29,7 +31,6 @@ type (
 	Context                    C.struct_AVFormatContext
 	Frame                      C.struct_AVFrame
 	CodecContext               C.struct_AVCodecContext
-	Dictionary                 C.struct_AVDictionary
 	AvIndexEntry               C.struct_AVIndexEntry
 	Stream                     C.struct_AVStream
 	AvProgram                  C.struct_AVProgram
@@ -165,7 +166,7 @@ func AvProbeInputBuffer(pb *AvIOContext, f **InputFormat, fi string, l int, o, m
 }
 
 //Open an input stream and read the header.
-func AvformatOpenInput(ps **Context, fi string, fmt *InputFormat, d **Dictionary) int {
+func AvformatOpenInput(ps **Context, fi string, fmt *InputFormat, d **avutil.Dictionary) int {
 	return int(C.avformat_open_input((**C.struct_AVFormatContext)(unsafe.Pointer(ps)), C.CString(fi), (*C.struct_AVInputFormat)(fmt), (**C.struct_AVDictionary)(unsafe.Pointer(d))))
 }
 
