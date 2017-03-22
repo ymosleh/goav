@@ -29,7 +29,7 @@ func (ctxt *Context) VideoCodec() *AvCodec {
 }
 
 func (ctxt *Context) Metadata() *avutil.Dictionary {
-	return (*Dictionary)(unsafe.Pointer(ctxt.metadata))
+	return (*avutil.Dictionary)(unsafe.Pointer(ctxt.metadata))
 }
 
 func (ctxt *Context) Internal() *AvFormatInternal {
