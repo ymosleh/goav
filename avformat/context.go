@@ -9,7 +9,7 @@ import "C"
 import (
 	"unsafe"
 
-	"github.com/amarburg/goav/avcodec"
+	"github.com/ioblank/goav/avcodec"
 	"github.com/ioblank/goav/avutil"
 )
 

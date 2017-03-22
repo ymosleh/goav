@@ -14,10 +14,10 @@ import (
 )
 
 type (
-	AvBuffer            C.struct_AVBuffer
-	AvBufferRef         C.struct_AVBufferRef
-	AvBufferPool        C.struct_AVBufferPool
-//	Frame               C.struct_AVFrame
+	AvBuffer     C.struct_AVBuffer
+	AvBufferRef  C.struct_AVBufferRef
+	AvBufferPool C.struct_AVBufferPool
+	//	Frame               C.struct_AVFrame
 	AvFrameSideData     C.struct_AVFrameSideData
 	AvFrameSideDataType C.enum_AVFrameSideDataType
 )
