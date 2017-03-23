@@ -24,6 +24,16 @@ type (
 	File          C.FILE
 )
 
+const (
+	AVMEDIA_TYPE_UNKNOWN    = -1
+	AVMEDIA_TYPE_VIDEO      = 0
+	AVMEDIA_TYPE_AUDIO      = 1
+	AVMEDIA_TYPE_DATA       = 2
+	AVMEDIA_TYPE_SUBTITLE   = 3
+	AVMEDIA_TYPE_ATTACHMENT = 4
+	AVMEDIA_TYPE_NB         = 5
+)
+
 //Return the LIBAvUTIL_VERSION_INT constant.
 func AvutilVersion() uint {
 	return uint(C.avutil_version())

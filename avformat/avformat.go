@@ -39,7 +39,6 @@ type (
 	Packet                     C.struct_AVPacket
 	CodecParserContext         C.struct_AVCodecParserContext
 	AvIOContext                C.struct_AVIOContext
-	Rational                   C.struct_AVRational
 	AvCodec                    C.struct_AVCodec
 	AvCodecTag                 C.struct_AVCodecTag
 	Class                      C.struct_AVClass
@@ -53,6 +52,14 @@ type (
 	AvDurationEstimationMethod C.enum_AVDurationEstimationMethod
 	AvPacketSideDataType       C.enum_AVPacketSideDataType
 	CodecId                    C.enum_AVCodecID
+)
+
+const (
+	MAX_ARRAY_SIZE       = 1<<31 - 1
+	AVFMT_NOFILE         = 0x0001
+	AVFMT_GLOBALHEADER   = 0x0040
+	AVFMT_FLAG_CUSTOM_IO = 0x0080
+	FF_FDEBUG_TS         = 0x0001
 )
 
 type File C.FILE

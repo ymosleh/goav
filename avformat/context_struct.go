@@ -48,8 +48,10 @@ func (ctxt *Context) Programs() **AvProgram {
 	return (**AvProgram)(unsafe.Pointer(ctxt.programs))
 }
 
-func (ctxt *Context) Streams() *Stream {
-	return (*Stream)(unsafe.Pointer(ctxt.streams))
+func (ctxt *Context) Streams() []*Stream {
+	arr := (*[MAX_ARRAY_SIZE](*Stream))(unsafe.Pointer(ctxt.streams))
+
+	return arr[:ctxt.NbStreams()]
 }
 
 func (ctxt *Context) Filename() string {

@@ -22,8 +22,9 @@ import (
 )
 
 type (
-	Codec C.struct_AVCodec
-	//	Context                       C.struct_AVCodecContext
+	Codec                         C.struct_AVCodec
+	Context                       C.struct_AVCodecContext
+	CodecParameters               C.struct_AVCodecParameters
 	Descriptor                    C.struct_AVCodecDescriptor
 	Parser                        C.struct_AVCodecParser
 	ParserContext                 C.struct_AVCodecParserContext
@@ -32,7 +33,6 @@ type (
 	Packet                        C.struct_AVPacket
 	BitStreamFilter               C.struct_AVBitStreamFilter
 	BitStreamFilterContext        C.struct_AVBitStreamFilterContext
-	Rational                      C.struct_AVRational
 	Class                         C.struct_AVClass
 	AvHWAccel                     C.struct_AVHWAccel
 	AvPacketSideData              C.struct_AVPacketSideData
