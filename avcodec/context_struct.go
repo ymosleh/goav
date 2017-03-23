@@ -603,6 +603,10 @@ func (ctxt *Context) SkipLoopFilter() AvDiscard {
 	return (AvDiscard)(ctxt.skip_loop_filter)
 }
 
+func (ctxt *Context) TimeBase() avutil.Rational {
+	return *(*avutil.Rational)(unsafe.Pointer(&ctxt.time_base))
+}
+
 func (ctxt *Context) SetTimeBase(timeBase avutil.Rational) {
 	ctxt.time_base = *((*C.struct_AVRational)(unsafe.Pointer(&timeBase)))
 }
