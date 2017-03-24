@@ -42,6 +42,11 @@ const (
 	AVMEDIA_TYPE_NB         = 5
 )
 
+const (
+	AVERROR_EAGAIN = -11
+	AVERROR_EOF    = -541478725
+)
+
 //Return the LIBAvUTIL_VERSION_INT constant.
 func AvutilVersion() uint {
 	return uint(C.avutil_version())

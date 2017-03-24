@@ -13,6 +13,12 @@ import (
 	"github.com/ioblank/goav/avutil"
 )
 
+//Close an opened input Context.
+func AvformatCloseInput(ctxt *Context) {
+	var ptr *C.struct_AVFormatContext = (*C.struct_AVFormatContext)(unsafe.Pointer(ctxt))
+	C.avformat_close_input((**C.struct_AVFormatContext)(&ptr))
+}
+
 func (s *Context) AvFormatGetProbeScore() int {
 	return int(C.av_format_get_probe_score((*C.struct_AVFormatContext)(s)))
 }
@@ -119,11 +125,6 @@ func (s *Context) AvReadPlay() int {
 //Pause a network-based stream (e.g.
 func (s *Context) AvReadPause() int {
 	return int(C.av_read_pause((*C.struct_AVFormatContext)(s)))
-}
-
-//Close an opened input Context.
-func (s *Context) AvformatCloseInput() {
-	C.avformat_close_input((**C.struct_AVFormatContext)(unsafe.Pointer(s)))
 }
 
 //Allocate the stream private data and write the stream header to an output media file.

@@ -5,12 +5,16 @@ package avutil
 import "C"
 import "unsafe"
 
-func AllocateImageBuffer(size int) []uint8 {
+func AvAllocateImageBuffer(size int) []uint8 {
 	p := AvMalloc(uintptr(size))
 	if p == nil {
 		return nil
 	}
 	return (*[1 << 30]uint8)(p)[:size]
+}
+
+func AvFreeImageBuffer(buffer []uint8) {
+	AvFree(unsafe.Pointer(&buffer[0]))
 }
 
 //Return the size in bytes of the amount of data required to store an image with the given parameters.

@@ -3,11 +3,9 @@
 
 package avutil
 
-/*
-	#cgo pkg-config: libavutil
-	#include <libavutil/frame.h>
-	#include <stdlib.h>
-*/
+//#cgo pkg-config: libavutil
+//#include <libavutil/frame.h>
+//#include <stdlib.h>
 import "C"
 import (
 	"unsafe"
@@ -21,6 +19,10 @@ type (
 	AvFrameSideData     C.struct_AVFrameSideData
 	AvFrameSideDataType C.enum_AVFrameSideDataType
 )
+
+func AvFrameGetBestEffortTimestamp(f *Frame) int64 {
+	return int64(C.av_frame_get_best_effort_timestamp((*C.struct_AVFrame)(unsafe.Pointer(f))))
+}
 
 func AvprivFrameGetMetadatap(f *Frame) **Dictionary {
 	return (**Dictionary)(unsafe.Pointer(C.avpriv_frame_get_metadatap((*C.struct_AVFrame)(unsafe.Pointer(f)))))
