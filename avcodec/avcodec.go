@@ -14,6 +14,7 @@ package avcodec
 //#include <libavformat/avformat.h>
 //#include <libavcodec/avcodec.h>
 //#include <libavutil/avutil.h>
+//#include <libavutil/frame.h>
 import "C"
 import (
 	"unsafe"
@@ -56,6 +57,12 @@ type (
 	AvPacketSideDataType          C.enum_AVPacketSideDataType
 	PixelFormat                   C.enum_AVPixelFormat
 	AvSampleFormat                C.enum_AVSampleFormat
+)
+
+const (
+	AV_PKT_FLAG_KEY     = 1
+	AV_PKT_FLAG_CORRUPT = 2
+	AV_PKT_FLAG_DISCARD = 4
 )
 
 func (c *Codec) AvCodecGetMaxLowres() int {
@@ -243,4 +250,14 @@ func (d *Descriptor) AvcodecDescriptorNext() *Descriptor {
 
 func AvcodecDescriptorGetByName(n string) *Descriptor {
 	return (*Descriptor)(C.avcodec_descriptor_get_by_name(C.CString(n)))
+}
+
+//Supply raw packet data as input to a decoder.
+func AvcodecSendPacket(avctx *Context, avpkt *Packet) int {
+	return int(C.avcodec_send_packet((*C.struct_AVCodecContext)(avctx), (*C.struct_AVPacket)(avpkt)))
+}
+
+//Return decoded output data from a decoder.
+func AvcodecReceiveFrame(avctx *Context, frame *avutil.Frame) int {
+	return int(C.avcodec_receive_frame((*C.struct_AVCodecContext)(avctx), (*C.struct_AVFrame)(unsafe.Pointer(frame))))
 }

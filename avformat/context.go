@@ -13,10 +13,6 @@ import (
 	"github.com/ioblank/goav/avutil"
 )
 
-type (
-	Rational C.struct_AVRational
-)
-
 func (s *Context) AvFormatGetProbeScore() int {
 	return int(C.av_format_get_probe_score((*C.struct_AVFormatContext)(s)))
 }
@@ -180,13 +176,17 @@ func (s *Context) AvDumpFormat(i int, url string, io int) {
 }
 
 //Guess the sample aspect ratio of a frame, based on both the stream and the frame aspect ratio.
-func (s *Context) AvGuessSampleAspectRatio(st *Stream, fr *Frame) Rational {
-	return (Rational)(C.av_guess_sample_aspect_ratio((*C.struct_AVFormatContext)(s), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(fr)))
+func (s *Context) AvGuessSampleAspectRatio(st *Stream, fr *Frame) avutil.Rational {
+	r := (C.struct_AVRational)(C.av_guess_sample_aspect_ratio((*C.struct_AVFormatContext)(s), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(fr)))
+
+	return *(*avutil.Rational)(unsafe.Pointer(&r))
 }
 
 //Guess the frame rate, based on both the container and codec information.
-func (s *Context) AvGuessFrameRate(st *Stream, fr *Frame) Rational {
-	return (Rational)(C.av_guess_frame_rate((*C.struct_AVFormatContext)(s), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(fr)))
+func (s *Context) AvGuessFrameRate(st *Stream, fr *Frame) avutil.Rational {
+	r := (C.struct_AVRational)(C.av_guess_frame_rate((*C.struct_AVFormatContext)(s), (*C.struct_AVStream)(st), (*C.struct_AVFrame)(fr)))
+
+	return *(*avutil.Rational)(unsafe.Pointer(&r))
 }
 
 //Check if the stream st contained in s is matched by the stream specifier spec.

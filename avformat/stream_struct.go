@@ -5,6 +5,7 @@ package avformat
 
 //#cgo pkg-config: libavformat
 //#include <libavformat/avformat.h>
+//#include <libavutil/rational.h>
 import "C"
 import (
 	"unsafe"
@@ -41,24 +42,24 @@ func (avs *Stream) ProbeData() AvProbeData {
 	return AvProbeData(avs.probe_data)
 }
 
-func (avs *Stream) AvgFrameRate() Rational {
-	return Rational(avs.avg_frame_rate)
+func (avs *Stream) AvgFrameRate() avutil.Rational {
+	return *(*avutil.Rational)(unsafe.Pointer(&avs.avg_frame_rate))
 }
 
 // func (avs *Stream) DisplayAspectRatio() *Rational {
 // 	return (*Rational)(unsafe.Pointer(avs.display_aspect_ratio))
 // }
 
-func (avs *Stream) RFrameRate() Rational {
-	return Rational(avs.r_frame_rate)
+func (avs *Stream) RFrameRate() avutil.Rational {
+	return *(*avutil.Rational)(unsafe.Pointer(&avs.r_frame_rate))
 }
 
-func (avs *Stream) SampleAspectRatio() Rational {
-	return Rational(avs.sample_aspect_ratio)
+func (avs *Stream) SampleAspectRatio() avutil.Rational {
+	return *(*avutil.Rational)(unsafe.Pointer(&avs.sample_aspect_ratio))
 }
 
-func (avs *Stream) TimeBase() Rational {
-	return Rational(avs.time_base)
+func (avs *Stream) TimeBase() avutil.Rational {
+	return *(*avutil.Rational)(unsafe.Pointer(&avs.time_base))
 }
 
 // func (avs *Stream) RecommendedEncoderConfiguration() string {

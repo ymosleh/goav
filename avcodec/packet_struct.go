@@ -3,6 +3,10 @@
 
 package avcodec
 
+//#cgo pkg-config: libavcodec
+//#include <libavcodec/avcodec.h>
+import "C"
+
 func (p *Packet) Buf() *AvBufferRef {
 	return (*AvBufferRef)(p.buf)
 }
@@ -15,6 +19,10 @@ func (p *Packet) Flags() int {
 	return int(p.flags)
 }
 
+func (p *Packet) SetFlags(f int) {
+	p.flags = C.int(f)
+}
+
 func (p *Packet) SideDataElems() int {
 	return int(p.side_data_elems)
 }
@@ -23,8 +31,16 @@ func (p *Packet) Size() int {
 	return int(p.size)
 }
 
+func (p *Packet) SetSize(s int) {
+	p.size = C.int(s)
+}
+
 func (p *Packet) StreamIndex() int {
 	return int(p.stream_index)
+}
+
+func (p *Packet) SetStreamIndex(i int) {
+	p.stream_index = C.int(i)
 }
 
 func (p *Packet) ConvergenceDuration() int64 {
@@ -45,4 +61,8 @@ func (p *Packet) Pts() int64 {
 
 func (p *Packet) Data() *uint8 {
 	return (*uint8)(p.data)
+}
+
+func (p *Packet) SetData(d *uint8) {
+	p.data = (*C.uint8_t)(d)
 }

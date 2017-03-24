@@ -19,6 +19,10 @@ func (r *Rational) SetDen(den int) {
 	r.den = C.int(den)
 }
 
+func (r *Rational) ToDouble() float64 {
+	return float64(r.Num()) / float64(r.Den())
+}
+
 func NewRational(num, den int) Rational {
 	var r Rational
 	r.SetNum(num)

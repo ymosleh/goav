@@ -16,6 +16,7 @@ package avformat
 //#include <libavcodec/avcodec.h>
 //#include <libavutil/avutil.h>
 //#include <libavutil/opt.h>
+//#include <libavutil/rational.h>
 //#include <libavdevice/avdevice.h>
 import "C"
 import (

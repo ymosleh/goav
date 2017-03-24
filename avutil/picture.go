@@ -6,7 +6,7 @@ import "C"
 import "unsafe"
 
 func AllocateImageBuffer(size int) []uint8 {
-	p := AvMalloc((uintptr)(size))
+	p := AvMalloc(uintptr(size))
 	if p == nil {
 		return nil
 	}

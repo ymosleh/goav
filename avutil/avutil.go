@@ -26,6 +26,13 @@ type (
 )
 
 const (
+	AV_TIME_BASE = 1000000
+)
+
+var AV_NOPTS_VALUE int64 = -9223372036854775808
+var AV_TIME_BASE_Q Rational = NewRational(1, AV_TIME_BASE)
+
+const (
 	AVMEDIA_TYPE_UNKNOWN    = -1
 	AVMEDIA_TYPE_VIDEO      = 0
 	AVMEDIA_TYPE_AUDIO      = 1
