@@ -9,7 +9,7 @@ import "C"
 import (
 	"unsafe"
 
-	"github.com/ioblank/goav/avutil"
+	"github.com/amarburg/goav/avutil"
 )
 
 //Rational av_stream_get_r_frame_rate (const Stream *s)

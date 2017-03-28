@@ -19,7 +19,7 @@ import "C"
 import (
 	"unsafe"
 
-	"github.com/ioblank/goav/avutil"
+	"github.com/amarburg/goav/avutil"
 )
 
 type (
