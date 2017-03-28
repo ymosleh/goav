@@ -44,7 +44,7 @@ func AvFrameAlloc() *Frame {
 //Free the frame and any dynamically allocated objects in it, e.g.
 func AvFrameFree(f *Frame) {
 	var ptr *C.struct_AVFrame = (*C.struct_AVFrame)(unsafe.Pointer(f))
-	C.av_frame_free((**C.struct_AVFrame)(&ptr))
+	C.av_frame_free(&ptr)
 }
 
 //Allocate new buffer(s) for audio or video data.
