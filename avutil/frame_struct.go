@@ -4,10 +4,10 @@ type Frame struct {
 	Data                   [8]*uint8
 	Linesize               [8]int32
 	Extended_data          **uint8
-	Width                  int32
-	Height                 int32
+	width                  int32
+	height                 int32
 	Nb_samples             int32
-	Format                 int32
+	format                 int32
 	Key_frame              int32
 	Pict_type              uint32
 	Sample_aspect_ratio    Rational

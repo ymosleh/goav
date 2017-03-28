@@ -105,8 +105,41 @@ func AvFrameGetSideData(f *Frame, t AvFrameSideDataType) *AvFrameSideData {
 func Data(f *Frame) *uint8 {
 	return (*uint8)(unsafe.Pointer((*C.uint8_t)(unsafe.Pointer(&f.Data))))
 }
+
 func Linesize(f *Frame) int {
 	return int(*(*C.int)(unsafe.Pointer(&f.Linesize)))
+}
+
+// Width returns the frame width
+func (f *Frame) Width() int {
+	return int(f.width)
+}
+
+// SetWidth sets the frame width
+func (f *Frame) SetWidth( w int )  {
+  f.width = int32(w)
+}
+
+// Height returns the frame height
+func (f *Frame) Height() int {
+	return int(f.height)
+}
+
+// SetHeight setes the frame height
+func (f *Frame) SetHeight( h int )  {
+	f.height = int32(h)
+}
+
+// Format returns the frame's format.
+// TODO:  Currently typecast to PixelFormat, but a frame could include audio
+func (f *Frame) Format() PixelFormat {
+	return (PixelFormat)(f.format)
+}
+
+// SetFormat sets the frame's format.
+// TODO:  Currently typecast to PixelFormat, but a frame could include audio
+func (f *Frame) SetFormat(pixFmt PixelFormat) {
+	f.format = C.enum_AVPixelFormat(pixFmt)
 }
 
 // //static int get_video_buffer (Frame *frame, int align)
