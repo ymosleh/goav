@@ -47,13 +47,8 @@ func (p *Packet) AvPacketFromByteSlice(buf []byte) int {
 	ptr := C.malloc(C.size_t(len(buf)))
 	cBuf := (*[1 << 30]byte)(ptr)
 	copy(cBuf[:], buf)
-	return p.AvPacketFromData((*uint8)(unsafe.Pointer(ptr)), len(buf))
+	return p.AvPacketFromData((*uint8)(ptr), len(buf))
 }
-
-// This has been deprecated in ffmpeg
-// func (p *Packet) AvDupPacket() int {
-// 	return int(C.av_dup_packet((*C.struct_AVPacket)(p)))
-// }
 
 //Copy packet, including contents.
 func (p *Packet) AvCopyPacket(r *Packet) int {
@@ -74,7 +69,7 @@ func (p *Packet) AvCopyPacketSideData(r *Packet) int {
 //Free a packet.
 func AvPacketFree(p *Packet) {
 	var ptr *C.struct_AVPacket = (*C.struct_AVPacket)(p)
-	C.av_packet_free((**C.struct_AVPacket)(&ptr))
+	C.av_packet_free(&ptr)
 }
 
 //Allocate new information of a packet.

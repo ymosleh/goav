@@ -572,11 +572,11 @@ func (ctxt *Context) FieldOrder() AvFieldOrder {
 	return (AvFieldOrder)(ctxt.field_order)
 }
 
-func (ctxt *Context) PixFmt() PixelFormat {
-	return (PixelFormat)(ctxt.pix_fmt)
+func (ctxt *Context) PixFmt() avutil.PixelFormat {
+	return (avutil.PixelFormat)(ctxt.pix_fmt)
 }
 
-func (ctxt *Context) SetPixFmt(pixFmt PixelFormat) {
+func (ctxt *Context) SetPixFmt(pixFmt avutil.PixelFormat) {
 	ctxt.pix_fmt = C.enum_AVPixelFormat(pixFmt)
 }
 

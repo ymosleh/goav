@@ -70,9 +70,7 @@ func (ctxt *Context) AvCodecSetChromaIntraMatrix(t *uint16) {
 //Free the codec context and everything associated with it and write NULL to the provided pointer.
 func AvcodecFreeContext(ctxt *Context) {
 	var ptr *C.struct_AVCodecContext = (*C.struct_AVCodecContext)(unsafe.Pointer(ctxt))
-	C.avcodec_free_context((**C.struct_AVCodecContext)(&ptr))
-
-	//C.avcodec_free_context((**C.struct_AVCodecContext)(unsafe.Pointer(ctxt)))
+	C.avcodec_free_context(&ptr)
 }
 
 //Set the fields of the given Context to default values corresponding to the given codec (defaults may be codec-dependent).
@@ -151,8 +149,8 @@ func (ctxt *Context) AvcodecEncodeSubtitle(b *uint8, bs int, s *AvSubtitle) int 
 	return int(C.avcodec_encode_subtitle((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (*C.uint8_t)(b), C.int(bs), (*C.struct_AVSubtitle)(s)))
 }
 
-func (ctxt *Context) AvcodecDefaultGetFormat(f *PixelFormat) PixelFormat {
-	return (PixelFormat)(C.avcodec_default_get_format((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (*C.enum_AVPixelFormat)(f)))
+func (ctxt *Context) AvcodecDefaultGetFormat(f *avutil.PixelFormat) avutil.PixelFormat {
+	return (avutil.PixelFormat)(C.avcodec_default_get_format((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (*C.enum_AVPixelFormat)(f)))
 }
 
 //Reset the internal decoder state / flush internal buffers.

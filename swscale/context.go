@@ -8,6 +8,8 @@ package swscale
 import "C"
 import (
 	"unsafe"
+
+	"github.com/asticode/goav/avutil"
 )
 
 //Allocate an empty Context.
@@ -26,11 +28,11 @@ func SwsFreecontext(ctxt *Context) {
 }
 
 //Allocate and return an Context.
-func SwsGetcontext(sw, sh int, sf PixelFormat, dw, dh int, df PixelFormat, f int, sfl, dfl *Filter, p *int) *Context {
+func SwsGetcontext(sw, sh int, sf avutil.PixelFormat, dw, dh int, df avutil.PixelFormat, f int, sfl, dfl *Filter, p *int) *Context {
 	return (*Context)(C.sws_getContext(C.int(sw), C.int(sh), (C.enum_AVPixelFormat)(sf), C.int(dw), C.int(dh), (C.enum_AVPixelFormat)(df), C.int(f), (*C.struct_SwsFilter)(sfl), (*C.struct_SwsFilter)(dfl), (*C.double)(unsafe.Pointer(p))))
 }
 
 //Check if context can be reused, otherwise reallocate a new one.
-func SwsGetcachedcontext(ctxt *Context, sw, sh int, sf PixelFormat, dw, dh int, df PixelFormat, f int, sfl, dfl *Filter, p *float64) *Context {
+func SwsGetcachedcontext(ctxt *Context, sw, sh int, sf avutil.PixelFormat, dw, dh int, df avutil.PixelFormat, f int, sfl, dfl *Filter, p *float64) *Context {
 	return (*Context)(C.sws_getCachedContext((*C.struct_SwsContext)(ctxt), C.int(sw), C.int(sh), (C.enum_AVPixelFormat)(sf), C.int(dw), C.int(dh), (C.enum_AVPixelFormat)(df), C.int(f), (*C.struct_SwsFilter)(sfl), (*C.struct_SwsFilter)(dfl), (*C.double)(p)))
 }

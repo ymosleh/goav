@@ -16,14 +16,29 @@ package swscale
 import "C"
 import (
 	"unsafe"
+
+	"github.com/asticode/goav/avutil"
 )
 
 type (
-	Context     C.struct_SwsContext
-	Filter      C.struct_SwsFilter
-	Vector      C.struct_SwsVector
-	Class       C.struct_AVClass
-	PixelFormat C.enum_AVPixelFormat
+	Context C.struct_SwsContext
+	Filter  C.struct_SwsFilter
+	Vector  C.struct_SwsVector
+	Class   C.struct_AVClass
+)
+
+const (
+	SWS_FAST_BILINEAR = 1
+	SWS_BILINEAR      = 2
+	SWS_BICUBIC       = 4
+	SWS_X             = 8
+	SWS_POINT         = 0x10
+	SWS_AREA          = 0x20
+	SWS_BICUBLIN      = 0x40
+	SWS_GAUSS         = 0x80
+	SWS_SINC          = 0x100
+	SWS_LANCZOS       = 0x200
+	SWS_SPLINE        = 0x400
 )
 
 //Return the LIBSWSCALE_VERSION_INT constant.
@@ -47,16 +62,16 @@ func SwsGetcoefficients(c int) *int {
 }
 
 //Return a positive value if pix_fmt is a supported input format, 0 otherwise.
-func SwsIssupportedinput(p PixelFormat) int {
+func SwsIssupportedinput(p avutil.PixelFormat) int {
 	return int(C.sws_isSupportedInput((C.enum_AVPixelFormat)(p)))
 }
 
 //Return a positive value if pix_fmt is a supported output format, 0 otherwise.
-func SwsIssupportedoutput(p PixelFormat) int {
+func SwsIssupportedoutput(p avutil.PixelFormat) int {
 	return int(C.sws_isSupportedOutput((C.enum_AVPixelFormat)(p)))
 }
 
-func SwsIssupportedendiannessconversion(p PixelFormat) int {
+func SwsIssupportedendiannessconversion(p avutil.PixelFormat) int {
 	return int(C.sws_isSupportedEndiannessConversion((C.enum_AVPixelFormat)(p)))
 }
 
