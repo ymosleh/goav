@@ -105,6 +105,18 @@ func (ctxt *Context) AvcodecAlignDimensions2(w, h *int, l int) {
 // 	return int(C.avcodec_decode_video2((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (*C.struct_AVFrame)(p), (*C.int)(unsafe.Pointer(g)), (*C.struct_AVPacket)(a)))
 // }
 
+// SendPacket sends a packet to the context for decoding
+// OO form of AvcodecSendPacket
+func (ctxt *Context) SendPacket( a *Packet ) int {
+	return AvcodecSendPacket( ctxt, a )
+}
+
+// ReceiveFrame receives a decoded from from a context
+// OO form of AvcodecReceiveFrame
+func (ctxt *Context) ReceiveFrame( f *avutil.Frame ) int {
+	return AvcodecReceiveFrame( ctxt, f )
+}
+
 //Decode a subtitle message.
 func (ctxt *Context) AvcodecDecodeSubtitle2(s *AvSubtitle, g *int, a *Packet) int {
 	return int(C.avcodec_decode_subtitle2((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (*C.struct_AVSubtitle)(s), (*C.int)(unsafe.Pointer(g)), (*C.struct_AVPacket)(a)))
