@@ -20,6 +20,10 @@ func AvDictGet(d *Dictionary, key string, prev *DictionaryEntry, flags int) *Dic
 	return (*DictionaryEntry)(C.av_dict_get((*C.struct_AVDictionary)(d), C.CString(key), (*C.struct_AVDictionaryEntry)(prev), C.int(flags)))
 }
 
+func AvDictFree(d **Dictionary) {
+	C.av_dict_free((**C.struct_AVDictionary)(unsafe.Pointer(d)))
+}
+
 func (e *DictionaryEntry) Key() string {
 	return C.GoString(e.key)
 }
