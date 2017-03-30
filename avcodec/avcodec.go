@@ -65,6 +65,16 @@ const (
 	AV_PKT_FLAG_DISCARD = 4
 )
 
+const (
+	AVDISCARD_NONE     = C.AVDISCARD_NONE     // discard nothing
+	AVDISCARD_DEFAULT  = C.AVDISCARD_DEFAULT  // discard useless packets like 0 size packets in avi
+	AVDISCARD_NONREF   = C.AVDISCARD_NONREF   // discard all non reference
+	AVDISCARD_BIDIR    = C.AVDISCARD_BIDIR    // discard all bidirectional frames
+	AVDISCARD_NONINTRA = C.AVDISCARD_NONINTRA // discard all non intra frames
+	AVDISCARD_NONKEY   = C.AVDISCARD_NONKEY   // discard all frames except keyframes
+	AVDISCARD_ALL      = C.AVDISCARD_ALL      // discard all
+)
+
 func (c *Codec) AvCodecGetMaxLowres() int {
 	panic("deprecated")
 	return 0

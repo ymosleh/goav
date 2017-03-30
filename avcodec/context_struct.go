@@ -595,6 +595,10 @@ func (ctxt *Context) SkipFrame() AvDiscard {
 	return (AvDiscard)(ctxt.skip_frame)
 }
 
+func (ctxt *Context) SetSkipFrame(d AvDiscard) {
+	ctxt.skip_frame = C.enum_AVDiscard(d)
+}
+
 func (ctxt *Context) SkipIdct() AvDiscard {
 	return (AvDiscard)(ctxt.skip_idct)
 }
