@@ -1,5 +1,5 @@
 # goav
-Golang binding for FFmpeg 3.2.xx.   Forked from [here](https://github.com/giorgisio/goav)
+Golang binding for __FFmpeg 3.2.xx__.   Forked from [here](https://github.com/giorgisio/goav)
 
 A binding to the ffmpeg video/audio manipulation library.   It's incomplete but I am able to [decode frames of ProRes](https://github.com/amarburg/go-prores-ffmpeg/).
 
@@ -28,7 +28,7 @@ I found the original [examples](example/) weren't complete.
 
 ## Installation
 
-Depends on FFMpeg: [install instructions here](https://github.com/FFmpeg/FFmpeg/blob/master/INSTALL.md)
+Depends on FFMpeg __3.2.xx__: [install instructions here](https://github.com/FFmpeg/FFmpeg/blob/master/INSTALL.md).   __Note__:  This version is included in Ubuntu 16.10 (Yakkety), but Ubuntu 16.04 (Xenial) is still on 2.7.xx.   You will need to install an [updated version](https://launchpad.net/~jonathonf/+archive/ubuntu/ffmpeg-3)
 
 ``` sh
 sudo apt-get -y --force-yes install autoconf automake build-essential libass-dev libfreetype6-dev libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libxcb1-dev libxcb-shm0-dev libxcb-xfixes0-dev pkg-config texi2html zlib1g-dev
@@ -63,14 +63,8 @@ Coding examples are available in the examples/ directory.
 
 ## TODO
 
-- [ ] Returning Errors
-- [ ] Garbage Collection
-- [X] Review included/excluded functions from each library
-- [ ] Write some Go Tests
+- [ ] __Write some Go Tests__
 - [ ] Get working in Wercker -- requires tests
-- [ ] Possible restructuring packages
-- [x] Tutorial01.c
-- [ ] More Tutorial
 
 ## License
 This library is under the [MIT License](http://opensource.org/licenses/MIT)
