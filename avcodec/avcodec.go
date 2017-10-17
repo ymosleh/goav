@@ -184,9 +184,10 @@ func AvcodecFindEncoderByName(c string) *Codec {
 }
 
 //Put a string representing the codec tag codec_tag in buf.
-func AvGetCodecTagString(b string, bf uintptr, c uint) uintptr {
-	return uintptr(C.av_get_codec_tag_string(C.CString(b), C.size_t(bf), C.uint(c)))
-}
+// Deprecated
+// func AvGetCodecTagString(b string, bf uintptr, c uint) uintptr {
+// 	return uintptr(C.av_get_codec_tag_string(C.CString(b), C.size_t(bf), C.uint(c)))
+// }
 
 func AvcodecString(b string, bs int, ctxt *Context, e int) {
 	C.avcodec_string(C.CString(b), C.int(bs), (*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), C.int(e))

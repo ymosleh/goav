@@ -89,14 +89,16 @@ func (p *Packet) AvPacketGetSideData(t AvPacketSideDataType, s *int) *uint8 {
 }
 
 //int 	av_packet_merge_side_data (Packet *pkt)
-func (p *Packet) AvPacketMergeSideData() int {
-	return int(C.av_packet_merge_side_data((*C.struct_AVPacket)(p)))
-}
+// deprecated
+// func (p *Packet) AvPacketMergeSideData() int {
+// 	return int(C.av_packet_merge_side_data((*C.struct_AVPacket)(p)))
+// }
 
 //int 	av_packet_split_side_data (Packet *pkt)
-func (p *Packet) AvPacketSplitSideData() int {
-	return int(C.av_packet_split_side_data((*C.struct_AVPacket)(p)))
-}
+// deprecated
+// func (p *Packet) AvPacketSplitSideData() int {
+// 	return int(C.av_packet_split_side_data((*C.struct_AVPacket)(p)))
+// }
 
 //Convenience function to free all the side data stored.
 func (p *Packet) AvPacketFreeSideData() {
