@@ -2,3 +2,6 @@
 /vendor
 /example
 .idea
+
+# Wercker temp directory
+.wercker/
