@@ -1,19 +1,5 @@
 # goav
-Golang binding for __FFmpeg 3.2.xx__.   Forked from [here](https://github.com/giorgisio/goav)
-
-A binding to the ffmpeg video/audio manipulation library.   It's incomplete but I am able to [decode frames of ProRes](https://github.com/amarburg/go-prores-ffmpeg/).
-
-[![GoDoc](https://godoc.org/github.com/amarburg/goav?status.svg)](https://godoc.org/github.com/amarburg/goav)
-[![wercker status](https://app.wercker.com/status/71ef12ee7449b3b00c0401ed5784ff52/s/master "wercker status")](https://app.wercker.com/project/byKey/71ef12ee7449b3b00c0401ed5784ff52)
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/505a2593fe37491cb1cc5342fdd6dba5)](https://www.codacy.com/app/amarburg/goav?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=amarburg/goav&amp;utm_campaign=Badge_Grade)
-[![Code Climate](https://codeclimate.com/github/amarburg/goav/badges/gpa.svg)](https://codeclimate.com/github/amarburg/goav)
-[![Issue Count](https://codeclimate.com/github/amarburg/goav/badges/issue_count.svg)](https://codeclimate.com/github/amarburg/goav)
-
-## Usage
-
-See [go-prores-ffmpeg](https://github.com/amarburg/go-prores-ffmpeg/blob/master/prores.go) as an example.
-
-I found the original [examples](example/) weren't complete.
+Golang binding for __FFmpeg 4.0.2__.   Forked from [here](https://github.com/amarburg/goav)
 
 ## Libraries
 
