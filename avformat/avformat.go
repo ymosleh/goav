@@ -56,11 +56,12 @@ type (
 )
 
 const (
-	MAX_ARRAY_SIZE       = 1<<29-1
-	AVFMT_NOFILE         = 0x0001
-	AVFMT_GLOBALHEADER   = 0x0040
-	AVFMT_FLAG_CUSTOM_IO = 0x0080
-	FF_FDEBUG_TS         = 0x0001
+	MAX_ARRAY_SIZE       = 1<<29 - 1
+	AVFMT_NOFILE         = C.AVFMT_NOFILE
+	AVFMT_GLOBALHEADER   = C.AVFMT_GLOBALHEADER
+	AVFMT_FLAG_CUSTOM_IO = C.AVFMT_FLAG_CUSTOM_IO
+	AVIO_FLAG_WRITE      = C.AVIO_FLAG_WRITE
+	FF_FDEBUG_TS         = C.FF_FDEBUG_TS
 )
 
 type File C.FILE
@@ -176,6 +177,16 @@ func AvProbeInputBuffer2(pb *AvIOContext, f **InputFormat, fi string, l int, o, 
 //Like av_probe_input_buffer2() but returns 0 on success.
 func AvProbeInputBuffer(pb *AvIOContext, f **InputFormat, fi string, l int, o, m uint) int {
 	return int(C.av_probe_input_buffer((*C.struct_AVIOContext)(pb), (**C.struct_AVInputFormat)(unsafe.Pointer(f)), C.CString(fi), unsafe.Pointer(&l), C.uint(o), C.uint(m)))
+}
+
+//Create and initialize a AVIOContext for accessing the resource indicated by url.
+func AvIOOpen(pb **AvIOContext, fi string, flags int) int {
+	return int(C.avio_open((**C.struct_AVIOContext)(unsafe.Pointer(pb)), C.CString(fi), C.int(flags)))
+}
+
+//Close the resource accessed by the AVIOContext *s, free it and set the pointer pointing to it to NULL.
+func AvIOClosep(pb **AvIOContext) int {
+	return int(C.avio_closep((**C.struct_AVIOContext)(unsafe.Pointer(pb))))
 }
 
 //Open an input stream and read the header.
