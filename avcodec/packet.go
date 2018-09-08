@@ -57,13 +57,17 @@ func (p *Packet) AvPacketFromByteSlice(buf []byte) int {
 
 //Copy packet, including contents.
 func (p *Packet) AvCopyPacket(r *Packet) int {
-	return int(C.av_copy_packet((*C.struct_AVPacket)(p), (*C.struct_AVPacket)(r)))
+	panic("deprecated")
+	return 0
+	//return int(C.av_copy_packet((*C.struct_AVPacket)(p), (*C.struct_AVPacket)(r)))
 
 }
 
 //Copy packet side data.
 func (p *Packet) AvCopyPacketSideData(r *Packet) int {
-	return int(C.av_copy_packet_side_data((*C.struct_AVPacket)(p), (*C.struct_AVPacket)(r)))
+	panic("deprecated")
+	return 0
+	//return int(C.av_copy_packet_side_data((*C.struct_AVPacket)(p), (*C.struct_AVPacket)(r)))
 
 }
 

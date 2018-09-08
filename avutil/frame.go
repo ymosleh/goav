@@ -7,9 +7,7 @@ package avutil
 //#include <libavutil/frame.h>
 //#include <stdlib.h>
 import "C"
-import (
-	"unsafe"
-)
+import "unsafe"
 
 type (
 	AvBuffer     C.struct_AVBuffer
@@ -21,19 +19,21 @@ type (
 )
 
 func AvFrameGetBestEffortTimestamp(f *Frame) int64 {
-	return int64(C.av_frame_get_best_effort_timestamp((*C.struct_AVFrame)(unsafe.Pointer(f))))
-}
-
-func AvprivFrameGetMetadatap(f *Frame) **Dictionary {
-	return (**Dictionary)(unsafe.Pointer(C.avpriv_frame_get_metadatap((*C.struct_AVFrame)(unsafe.Pointer(f)))))
+	panic("deprecated")
+	return 0
+	//return int64(C.av_frame_get_best_effort_timestamp((*C.struct_AVFrame)(unsafe.Pointer(f))))
 }
 
 func AvFrameSetQpTable(f *Frame, b *AvBufferRef, s, q int) int {
-	return int(C.av_frame_set_qp_table((*C.struct_AVFrame)(unsafe.Pointer(f)), (*C.struct_AVBufferRef)(unsafe.Pointer(b)), C.int(s), C.int(q)))
+	panic("deprecated")
+	return 0
+	//return int(C.av_frame_set_qp_table((*C.struct_AVFrame)(unsafe.Pointer(f)), (*C.struct_AVBufferRef)(unsafe.Pointer(b)), C.int(s), C.int(q)))
 }
 
 func AvFrameGetQpTable(f *Frame, s, t *int) int8 {
-	return int8(*C.av_frame_get_qp_table((*C.struct_AVFrame)(unsafe.Pointer(f)), (*C.int)(unsafe.Pointer(s)), (*C.int)(unsafe.Pointer(t))))
+	panic("deprecated")
+	return 0
+	//return int8(*C.av_frame_get_qp_table((*C.struct_AVFrame)(unsafe.Pointer(f)), (*C.int)(unsafe.Pointer(s)), (*C.int)(unsafe.Pointer(t))))
 }
 
 //Allocate an Frame and set its fields to default values.
@@ -116,8 +116,8 @@ func (f *Frame) Width() int {
 }
 
 // SetWidth sets the frame width
-func (f *Frame) SetWidth( w int )  {
-  f.width = int32(w)
+func (f *Frame) SetWidth(w int) {
+	f.width = int32(w)
 }
 
 // Height returns the frame height
@@ -126,7 +126,7 @@ func (f *Frame) Height() int {
 }
 
 // SetHeight setes the frame height
-func (f *Frame) SetHeight( h int )  {
+func (f *Frame) SetHeight(h int) {
 	f.height = int32(h)
 }
 

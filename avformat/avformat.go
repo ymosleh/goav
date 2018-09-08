@@ -56,7 +56,7 @@ type (
 )
 
 const (
-	MAX_ARRAY_SIZE       = 1<<31 - 1
+	MAX_ARRAY_SIZE       = 1<<29-1
 	AVFMT_NOFILE         = 0x0001
 	AVFMT_GLOBALHEADER   = 0x0040
 	AVFMT_FLAG_CUSTOM_IO = 0x0080
@@ -76,21 +76,27 @@ func (ctxt *AvIOContext) AvAppendPacket(pkt *Packet, s int) int {
 }
 
 func (f *InputFormat) AvRegisterInputFormat() {
-	C.av_register_input_format((*C.struct_AVInputFormat)(f))
+	panic("deprecated")
+	//C.av_register_input_format((*C.struct_AVInputFormat)(f))
 }
 
 func (f *OutputFormat) AvRegisterOutputFormat() {
-	C.av_register_output_format((*C.struct_AVOutputFormat)(f))
+	panic("deprecated")
+	//C.av_register_output_format((*C.struct_AVOutputFormat)(f))
 }
 
 //If f is NULL, returns the first registered input format, if f is non-NULL, returns the next registered input format after f or NULL if f is the last one.
 func (f *InputFormat) AvIformatNext() *InputFormat {
-	return (*InputFormat)(C.av_iformat_next((*C.struct_AVInputFormat)(f)))
+	panic("deprecated")
+	return nil
+	//return (*InputFormat)(C.av_iformat_next((*C.struct_AVInputFormat)(f)))
 }
 
 //If f is NULL, returns the first registered output format, if f is non-NULL, returns the next registered output format after f or NULL if f is the last one.
 func (f *OutputFormat) AvOformatNext() *OutputFormat {
-	return (*OutputFormat)(C.av_oformat_next((*C.struct_AVOutputFormat)(f)))
+	panic("deprecated")
+	return nil
+	//return (*OutputFormat)(C.av_oformat_next((*C.struct_AVOutputFormat)(f)))
 }
 
 //Return the LIBAvFORMAT_VERSION_INT constant.
@@ -110,7 +116,8 @@ func AvformatLicense() string {
 
 //Initialize libavformat and register all the muxers, demuxers and protocols.
 func AvRegisterAll() {
-	C.av_register_all()
+	panic("deprecated")
+	//C.av_register_all()
 }
 
 //Do global initialization of network components.

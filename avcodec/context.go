@@ -13,43 +13,58 @@ import (
 )
 
 func (ctxt *Context) AvCodecGetPktTimebase() Rational {
-	return (Rational)(C.av_codec_get_pkt_timebase((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt))))
+	panic("deprecated")
+	return Rational{}
+	//return (Rational)(C.av_codec_get_pkt_timebase((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt))))
 }
 
 func (ctxt *Context) AvCodecSetPktTimebase(r Rational) {
-	C.av_codec_set_pkt_timebase((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (C.struct_AVRational)(r))
+	panic("deprecated")
+	//C.av_codec_set_pkt_timebase((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (C.struct_AVRational)(r))
 }
 
 func (ctxt *Context) AvCodecGetCodecDescriptor() *Descriptor {
-	return (*Descriptor)(C.av_codec_get_codec_descriptor((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt))))
+	panic("deprecated")
+	return nil
+	//return (*Descriptor)(C.av_codec_get_codec_descriptor((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt))))
 }
 
 func (ctxt *Context) AvCodecSetCodecDescriptor(d *Descriptor) {
-	C.av_codec_set_codec_descriptor((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (*C.struct_AVCodecDescriptor)(d))
+	panic("deprecated")
+	//C.av_codec_set_codec_descriptor((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (*C.struct_AVCodecDescriptor)(d))
 }
 
 func (ctxt *Context) AvCodecGetLowres() int {
-	return int(C.av_codec_get_lowres((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt))))
+	panic("deprecated")
+	return 0
+	//return int(C.av_codec_get_lowres((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt))))
 }
 
 func (ctxt *Context) AvCodecSetLowres(i int) {
-	C.av_codec_set_lowres((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), C.int(i))
+	panic("deprecated")
+	//C.av_codec_set_lowres((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), C.int(i))
 }
 
 func (ctxt *Context) AvCodecGetSeekPreroll() int {
-	return int(C.av_codec_get_seek_preroll((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt))))
+	panic("deprecated")
+	return 0
+	//return int(C.av_codec_get_seek_preroll((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt))))
 }
 
 func (ctxt *Context) AvCodecSetSeekPreroll(i int) {
-	C.av_codec_set_seek_preroll((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), C.int(i))
+	panic("deprecated")
+	//C.av_codec_set_seek_preroll((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), C.int(i))
 }
 
 func (ctxt *Context) AvCodecGetChromaIntraMatrix() *uint16 {
-	return (*uint16)(C.av_codec_get_chroma_intra_matrix((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt))))
+	panic("deprecated")
+	return nil
+	//return (*uint16)(C.av_codec_get_chroma_intra_matrix((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt))))
 }
 
 func (ctxt *Context) AvCodecSetChromaIntraMatrix(t *uint16) {
-	C.av_codec_set_chroma_intra_matrix((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (*C.uint16_t)(t))
+	panic("deprecated")
+	//C.av_codec_set_chroma_intra_matrix((*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), (*C.uint16_t)(t))
 }
 
 //Free the codec context and everything associated with it and write NULL to the provided pointer.
@@ -172,9 +187,12 @@ func AvParserClose(ctxtp *ParserContext) {
 }
 
 func (p *Parser) AvParserNext() *Parser {
-	return (*Parser)(C.av_parser_next((*C.struct_AVCodecParser)(p)))
+	panic("deprecated")
+	return nil
+	//return (*Parser)(C.av_parser_next((*C.struct_AVCodecParser)(p)))
 }
 
 func (p *Parser) AvRegisterCodecParser() {
-	C.av_register_codec_parser((*C.struct_AVCodecParser)(p))
+	panic("deprecated")
+	//C.av_register_codec_parser((*C.struct_AVCodecParser)(p))
 }

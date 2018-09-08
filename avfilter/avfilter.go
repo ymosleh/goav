@@ -70,7 +70,9 @@ func AvfilterLinkFree(l **Link) {
 
 //Get the number of channels of a link.
 func AvfilterLinkGetChannels(l *Link) int {
-	return int(C.avfilter_link_get_channels((*C.struct_AVFilterLink)(l)))
+	panic("deprecated")
+	return 0
+	//return int(C.avfilter_link_get_channels((*C.struct_AVFilterLink)(l)))
 }
 
 //Set the closed field of a link.
@@ -91,7 +93,8 @@ func AvfilterProcessCommand(f *Context, cmd, arg, res string, l, fl int) int {
 
 //Initialize the filter system.
 func AvfilterRegisterAll() {
-	C.avfilter_register_all()
+	panic("deprecated")
+	//C.avfilter_register_all()
 }
 
 //Initialize a filter with the supplied parameters.

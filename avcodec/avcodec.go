@@ -66,17 +66,22 @@ const (
 )
 
 func (c *Codec) AvCodecGetMaxLowres() int {
-	return int(C.av_codec_get_max_lowres((*C.struct_AVCodec)(c)))
+	panic("deprecated")
+	return 0
+	//return int(C.av_codec_get_max_lowres((*C.struct_AVCodec)(c)))
 }
 
 //If c is NULL, returns the first registered codec, if c is non-NULL,
 func (c *Codec) AvCodecNext() *Codec {
-	return (*Codec)(C.av_codec_next((*C.struct_AVCodec)(c)))
+	panic("deprecated")
+	return nil
+	//return (*Codec)(C.av_codec_next((*C.struct_AVCodec)(c)))
 }
 
 //Register the codec codec and initialize libavcodec.
 func (c *Codec) AvcodecRegister() {
-	C.avcodec_register((*C.struct_AVCodec)(c))
+	panic("deprecated")
+	//C.avcodec_register((*C.struct_AVCodec)(c))
 }
 
 //Return a name for the specified profile, if available.
@@ -120,7 +125,8 @@ func AvcodecLicense() string {
 
 //Register all the codecs, parsers and bitstream filters which were enabled at configuration time.
 func AvcodecRegisterAll() {
-	C.avcodec_register_all()
+	panic("deprecated")
+	//C.avcodec_register_all()
 }
 
 //Get the Class for Context.
@@ -226,7 +232,9 @@ func AvXiphlacing(s *string, v uint) uint {
 //If hwaccel is NULL, returns the first registered hardware accelerator, if hwaccel is non-NULL,
 //returns the next registered hardware accelerator after hwaccel, or NULL if hwaccel is the last one.
 func (a *AvHWAccel) AvHwaccelNext() *AvHWAccel {
-	return (*AvHWAccel)(C.av_hwaccel_next((*C.struct_AVHWAccel)(a)))
+	panic("deprecated")
+	return nil
+	//return (*AvHWAccel)(C.av_hwaccel_next((*C.struct_AVHWAccel)(a)))
 }
 
 //Get the type of the given codec.

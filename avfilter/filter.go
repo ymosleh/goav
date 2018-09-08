@@ -16,10 +16,14 @@ func AvfilterGetByName(n string) *Filter {
 
 //Register a filter.
 func (f *Filter) AvfilterRegister() int {
-	return int(C.avfilter_register((*C.struct_AVFilter)(f)))
+	panic("deprecated")
+	return 0
+	//return int(C.avfilter_register((*C.struct_AVFilter)(f)))
 }
 
 //Iterate over all registered filters.
 func (f *Filter) AvfilterNext() *Filter {
-	return (*Filter)(C.avfilter_next((*C.struct_AVFilter)(f)))
+	panic("deprecated")
+	return nil
+	//return (*Filter)(C.avfilter_next((*C.struct_AVFilter)(f)))
 }

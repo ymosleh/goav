@@ -19,7 +19,8 @@ const (
 
 //Utility function to access log2_chroma_w log2_chroma_h from the pixel format AvPixFmtDescriptor.
 func (p PixelFormat) AvcodecGetChromaSubSample(h, v *int) {
-	C.avcodec_get_chroma_sub_sample((C.enum_AVPixelFormat)(p), (*C.int)(unsafe.Pointer(h)), (*C.int)(unsafe.Pointer(v)))
+	panic("deprecated")
+	//C.avcodec_get_chroma_sub_sample((C.enum_AVPixelFormat)(p), (*C.int)(unsafe.Pointer(h)), (*C.int)(unsafe.Pointer(v)))
 }
 
 //Return a value representing the fourCC code associated to the pixel format pix_fmt, or 0 if no associated fourCC code can be found.
