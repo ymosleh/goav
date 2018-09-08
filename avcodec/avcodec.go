@@ -74,6 +74,12 @@ const (
 	AVDISCARD_ALL      = C.AVDISCARD_ALL      // discard all
 )
 
+const (
+	AVMEDIA_TYPE_AUDIO    = C.AVMEDIA_TYPE_AUDIO
+	AVMEDIA_TYPE_SUBTITLE = C.AVMEDIA_TYPE_SUBTITLE
+	AVMEDIA_TYPE_VIDEO    = C.AVMEDIA_TYPE_VIDEO
+)
+
 func (c *Codec) AvCodecGetMaxLowres() int {
 	panic("deprecated")
 	return 0
