@@ -14,6 +14,7 @@ package avutil
 //#include <errno.h>
 import "C"
 import (
+	"fmt"
 	"unsafe"
 )
 
@@ -57,7 +58,6 @@ const (
 
 const (
 	MAX_AVERROR_STR_LEN = 255
-	AVERROR_UNKNOWN     = "Unknown error"
 )
 
 //Return the LIBAvUTIL_VERSION_INT constant.
@@ -114,12 +114,12 @@ func AvStrerr(errcode int) string {
 	errbufSize := C.size_t(MAX_AVERROR_STR_LEN)
 	errbuf := (*C.char)(C.malloc(errbufSize))
 	if errbuf == nil {
-		return AVERROR_UNKNOWN
+		return fmt.Sprintf("unknown error with code %d", errcode)
 	}
 	defer C.free(unsafe.Pointer(errbuf))
 	ret := C.av_strerror(C.int(errcode), errbuf, errbufSize)
 	if ret < 0 {
-		return AVERROR_UNKNOWN
+		return fmt.Sprintf("unknown error with code %d", errcode)
 	}
 	return C.GoString(errbuf)
 }
