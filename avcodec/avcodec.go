@@ -123,12 +123,6 @@ func AvcodecLicense() string {
 	return C.GoString(C.avcodec_license())
 }
 
-//Register all the codecs, parsers and bitstream filters which were enabled at configuration time.
-func AvcodecRegisterAll() {
-	panic("deprecated")
-	//C.avcodec_register_all()
-}
-
 //Get the Class for Context.
 func AvcodecGetClass() *Class {
 	return (*Class)(C.avcodec_get_class())

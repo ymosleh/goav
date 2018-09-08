@@ -114,12 +114,6 @@ func AvformatLicense() string {
 	return C.GoString(C.avformat_license())
 }
 
-//Initialize libavformat and register all the muxers, demuxers and protocols.
-func AvRegisterAll() {
-	panic("deprecated")
-	//C.av_register_all()
-}
-
 //Do global initialization of network components.
 func AvformatNetworkInit() int {
 	return int(C.avformat_network_init())
