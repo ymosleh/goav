@@ -11,15 +11,19 @@ func (p *Packet) Buf() *AvBufferRef {
 	return (*AvBufferRef)(p.buf)
 }
 
-func (p *Packet) Duration() int {
-	return int(p.duration)
+func (p *Packet) Duration() int64 {
+	return int64(p.duration)
+}
+
+func (p *Packet) SetDuration(d int64) {
+	p.duration = C.longlong(d)
 }
 
 func (p *Packet) Flags() int {
 	return int(p.flags)
 }
 
-func (p *Packet) SetFlags(f int) {
+func (p *Packet) SetFlags(f int64) {
 	p.flags = C.int(f)
 }
 
@@ -51,12 +55,24 @@ func (p *Packet) Dts() int64 {
 	return int64(p.dts)
 }
 
+func (p *Packet) SetDts(v int64) {
+	p.dts = C.longlong(v)
+}
+
 func (p *Packet) Pos() int64 {
 	return int64(p.pos)
 }
 
+func (p *Packet) SetPos(v int64) {
+	p.pos = C.longlong(v)
+}
+
 func (p *Packet) Pts() int64 {
 	return int64(p.pts)
+}
+
+func (p *Packet) SetPts(v int64) {
+	p.pts = C.longlong(v)
 }
 
 func (p *Packet) Data() *uint8 {
