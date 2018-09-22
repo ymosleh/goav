@@ -45,7 +45,21 @@ const (
 	AVMEDIA_TYPE_NB         = C.AVMEDIA_TYPE_NB
 )
 
-const(
+// MediaTypeFromString returns a media type from a string
+func MediaTypeFromString(i string) MediaType {
+	switch i {
+	case "audio":
+		return AVMEDIA_TYPE_AUDIO
+	case "subtitle":
+		return AVMEDIA_TYPE_SUBTITLE
+	case "video":
+		return AVMEDIA_TYPE_VIDEO
+	default:
+		return -1
+	}
+}
+
+const (
 	AV_CH_FRONT_LEFT    = 0x1
 	AV_CH_FRONT_RIGHT   = 0x2
 	AV_CH_LAYOUT_STEREO = 0x3 //(AV_CH_FRONT_LEFT | AV_CH_FRONT_RIGHT)
