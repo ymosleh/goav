@@ -128,6 +128,22 @@ func AvfilterInoutAlloc() *Input {
 }
 
 //Free the supplied list of Input and set *inout to NULL.
-func AvfilterInoutFree(i *Input) {
+func AvfilterInoutFree(i **Input) {
 	C.avfilter_inout_free((**C.struct_AVFilterInOut)(unsafe.Pointer(i)))
+}
+
+func (i *Input) SetName(n string) {
+	i.name = C.CString(n)
+}
+
+func (i *Input) SetFilterCtx(ctx *Context) {
+	i.filter_ctx = (*C.struct_AVFilterContext)(ctx)
+}
+
+func (i *Input) SetPadIdx(idx int) {
+	i.pad_idx = C.int(idx)
+}
+
+func (i *Input) SetNext(n *Input) {
+	i.next = (*C.struct_AVFilterInOut)(n)
 }
