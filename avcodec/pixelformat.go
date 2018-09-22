@@ -12,13 +12,6 @@ import (
 	"github.com/asticode/goav/avutil"
 )
 
-const (
-	AV_PIX_FMT_RGB24   = C.AV_PIX_FMT_RGB24
-	AV_PIX_FMT_RGBA    = C.AV_PIX_FMT_RGBA
-	AV_PIX_FMT_YUV420P = C.AV_PIX_FMT_YUV420P
-	AV_PIX_FMT_BGR24   = C.AV_PIX_FMT_BGR24
-)
-
 //Utility function to access log2_chroma_w log2_chroma_h from the pixel format AvPixFmtDescriptor.
 func AvcodecGetChromaSubSample(pix_fmt avutil.PixelFormat, h, v *int) {
 	panic("deprecated")
