@@ -626,3 +626,11 @@ func (ctxt *Context) TimeBase() avutil.Rational {
 func (ctxt *Context) SetTimeBase(timeBase avutil.Rational) {
 	ctxt.time_base = *((*C.struct_AVRational)(unsafe.Pointer(&timeBase)))
 }
+
+func (ctxt *Context) SampleAspectRatio() avutil.Rational {
+	return *(*avutil.Rational)(unsafe.Pointer(&ctxt.sample_aspect_ratio))
+}
+
+func (ctxt *Context) SetSampleAspectRatio(r avutil.Rational) {
+	ctxt.sample_aspect_ratio = *((*C.struct_AVRational)(unsafe.Pointer(&r)))
+}

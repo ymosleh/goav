@@ -100,6 +100,10 @@ func (f *OutputFormat) AvOformatNext() *OutputFormat {
 	//return (*OutputFormat)(C.av_oformat_next((*C.struct_AVOutputFormat)(f)))
 }
 
+func (f *OutputFormat) Flags() int {
+	return int(f.flags)
+}
+
 //Return the LIBAvFORMAT_VERSION_INT constant.
 func AvformatVersion() uint {
 	return uint(C.avformat_version())

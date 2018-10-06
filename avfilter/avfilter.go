@@ -28,6 +28,10 @@ type (
 	MediaType C.enum_AVMediaType
 )
 
+const (
+	MAX_ARRAY_SIZE = 1<<29 - 1
+)
+
 //Return the LIBAvFILTER_VERSION_INT constant.
 func AvfilterVersion() uint {
 	return uint(C.avfilter_version())
@@ -112,6 +116,34 @@ func (ctx *Context) AvfilterFree() {
 	C.avfilter_free((*C.struct_AVFilterContext)(ctx))
 }
 
+func (ctx *Context) NbInputs() uint {
+	return uint(ctx.nb_inputs)
+}
+
+func (ctx *Context) NbOutputs() uint {
+	return uint(ctx.nb_outputs)
+}
+
+func (ctx *Context) Inputs() []*Link {
+	if ctx.NbInputs() == 0 {
+		return nil
+	}
+
+	arr := (*[MAX_ARRAY_SIZE](*Link))(unsafe.Pointer(ctx.inputs))
+
+	return arr[:ctx.NbInputs()]
+}
+
+func (ctx *Context) Outputs() []*Link {
+	if ctx.NbOutputs() == 0 {
+		return nil
+	}
+
+	arr := (*[MAX_ARRAY_SIZE](*Link))(unsafe.Pointer(ctx.outputs))
+
+	return arr[:ctx.NbOutputs()]
+}
+
 //Insert a filter in the middle of an existing link.
 func AvfilterInsertFilter(l *Link, f *Context, fsi, fdi uint) int {
 	return int(C.avfilter_insert_filter((*C.struct_AVFilterLink)(l), (*C.struct_AVFilterContext)(f), C.uint(fsi), C.uint(fdi)))
@@ -146,4 +178,8 @@ func (i *Input) SetPadIdx(idx int) {
 
 func (i *Input) SetNext(n *Input) {
 	i.next = (*C.struct_AVFilterInOut)(n)
+}
+
+func (l *Link) TimeBase() avutil.Rational {
+	return *(*avutil.Rational)(unsafe.Pointer(&l.time_base))
 }

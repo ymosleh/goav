@@ -62,6 +62,10 @@ func (avs *Stream) TimeBase() avutil.Rational {
 	return *(*avutil.Rational)(unsafe.Pointer(&avs.time_base))
 }
 
+func (avs *Stream) SetTimeBase(r avutil.Rational)  {
+	avs.time_base = *((*C.struct_AVRational)(unsafe.Pointer(&r)))
+}
+
 // func (avs *Stream) RecommendedEncoderConfiguration() string {
 // 	return C.GoString(avs.recommended_encoder_configuration)
 // }
