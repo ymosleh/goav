@@ -74,6 +74,13 @@ const (
 	MAX_AVERROR_STR_LEN = 255
 )
 
+const (
+	AV_PICTURE_TYPE_NONE = C.AV_PICTURE_TYPE_NONE
+	AV_PICTURE_TYPE_I = C.AV_PICTURE_TYPE_I
+	AV_PICTURE_TYPE_B = C.AV_PICTURE_TYPE_B
+	AV_PICTURE_TYPE_P = C.AV_PICTURE_TYPE_P
+)
+
 //Return the LIBAvUTIL_VERSION_INT constant.
 func AvutilVersion() uint {
 	return uint(C.avutil_version())
