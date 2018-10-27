@@ -16,7 +16,7 @@ func (p *Packet) Duration() int64 {
 }
 
 func (p *Packet) SetDuration(d int64) {
-	p.duration = C.longlong(d)
+	p.duration = C.int64_t(d)
 }
 
 func (p *Packet) Flags() int {
@@ -56,7 +56,7 @@ func (p *Packet) Dts() int64 {
 }
 
 func (p *Packet) SetDts(v int64) {
-	p.dts = C.longlong(v)
+	p.dts = C.int64_t(v)
 }
 
 func (p *Packet) Pos() int64 {
@@ -64,7 +64,7 @@ func (p *Packet) Pos() int64 {
 }
 
 func (p *Packet) SetPos(v int64) {
-	p.pos = C.longlong(v)
+	p.pos = C.int64_t(v)
 }
 
 func (p *Packet) Pts() int64 {
@@ -72,7 +72,7 @@ func (p *Packet) Pts() int64 {
 }
 
 func (p *Packet) SetPts(v int64) {
-	p.pts = C.longlong(v)
+	p.pts = C.int64_t(v)
 }
 
 func (p *Packet) Data() *uint8 {
