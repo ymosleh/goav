@@ -72,6 +72,7 @@ const (
 
 const (
 	MAX_AVERROR_STR_LEN = 255
+	MAX_CHANNEL_LAYOUT_STR_LEN = 64
 )
 
 const (
@@ -127,8 +128,19 @@ func AvGetTimeBaseQ() Rational {
 	return (Rational)(C.av_get_time_base_q())
 }
 
-func AvGetChannelLayoutNbChannels(chanelLayout uint64) int {
-	return int(C.av_get_channel_layout_nb_channels(C.uint64_t(chanelLayout)))
+func AvGetChannelLayoutNbChannels(channelLayout uint64) int {
+	return int(C.av_get_channel_layout_nb_channels(C.uint64_t(channelLayout)))
+}
+
+func AvGetChannelLayoutString(channelLayout uint64) string {
+	bufSize := C.size_t(MAX_CHANNEL_LAYOUT_STR_LEN)
+	buf := (*C.char)(C.malloc(bufSize))
+	if buf == nil {
+		return fmt.Sprintf("unknown channel layout with code %d", channelLayout)
+	}
+	defer C.free(unsafe.Pointer(buf))
+	C.av_get_channel_layout_string(buf, C.int(bufSize), 0, C.uint64_t(channelLayout))
+	return C.GoString(buf)
 }
 
 func AvStrerr(errcode int) string {
