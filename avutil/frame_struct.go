@@ -70,6 +70,14 @@ func (f *Frame) SampleRate() int {
 	return int(f.sample_rate)
 }
 
+func (f *Frame) SetChannelLayout(l uint64) {
+	f.channel_layout = C.uint64_t(l)
+}
+
+func (f *Frame) SetSampleRate(r int) {
+	f.sample_rate = C.int(r)
+}
+
 // TODO Create getters and setters
 // https://ffmpeg.org/doxygen/4.0/structAVFrame.html
 /*
