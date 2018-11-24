@@ -66,7 +66,12 @@ func (f *Frame) PktDts() int64 {
 	return int64(f.pkt_dts)
 }
 
+func (f *Frame) SampleRate() int {
+	return int(f.sample_rate)
+}
+
 // TODO Create getters and setters
+// https://ffmpeg.org/doxygen/4.0/structAVFrame.html
 /*
 type Frame struct {
 	Coded_picture_number   int32
