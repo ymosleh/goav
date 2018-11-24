@@ -1,20 +1,88 @@
 package avutil
 
+//#cgo pkg-config: libavutil
+//#include <libavutil/frame.h>
+//#include <stdlib.h>
+import "C"
+import "unsafe"
+
+func (f *Frame) Data() *uint8 {
+	return (*uint8)(unsafe.Pointer((*C.uint8_t)(unsafe.Pointer(&f.data))))
+}
+
+func (f *Frame) Linesize() int {
+	return int(*(*C.int)(unsafe.Pointer(&f.linesize)))
+}
+
+func (f *Frame) Width() int {
+	return int(f.width)
+}
+
+func (f *Frame) SetWidth(w int) {
+	f.width = C.int(w)
+}
+
+func (f *Frame) Height() int {
+	return int(f.height)
+}
+
+func (f *Frame) SetHeight(h int) {
+	f.height = C.int(h)
+}
+
+func (f *Frame) Format() int {
+	return int(f.format)
+}
+
+func (f *Frame) SetFormat(fmt int) {
+	f.format = C.int(fmt)
+}
+
+func (f *Frame) NbSamples() int {
+	return int(f.nb_samples)
+}
+
+func (f *Frame) SetNbSamples(n int) {
+	f.nb_samples = C.int(n)
+}
+
+func (f *Frame) SetKeyFrame(k int) {
+	f.key_frame = C.int(k)
+}
+
+func (f *Frame) SetPictType(t AvPictureType) {
+	f.pict_type = C.enum_AVPictureType(t)
+}
+
+func (f *Frame) Pts() int64 {
+	return int64(f.pts)
+}
+
+func (f *Frame) PktPts() int64 {
+	return int64(f.pkt_pts)
+}
+
+func (f *Frame) PktDts() int64 {
+	return int64(f.pkt_dts)
+}
+
+// TODO Create getters and setters
+/*
 type Frame struct {
+	Coded_picture_number   int32
 	Data                   [8]*uint8
-	Linesize               [8]int32
 	Extended_data          **uint8
-	width                  int32
-	height                 int32
-	Nb_samples             int32
-	format                 int32
+	Format                 int32
+	Height                 int32
 	Key_frame              int32
+	Linesize               [8]int32
+	Nb_samples             int32
 	Pict_type              uint32
-	Sample_aspect_ratio    Rational
 	Pts                    int64
 	Pkt_pts                int64
 	Pkt_dts                int64
-	Coded_picture_number   int32
+	Sample_aspect_ratio    Rational
+	Width                  int32
 	Display_picture_number int32
 	Quality                int32
 	Pad_cgo_0              [4]byte
@@ -55,3 +123,4 @@ type Frame struct {
 	Qp_table_buf           *AvBufferRef
 	Hw_frames_ctx          *AvBufferRef
 }
+*/
