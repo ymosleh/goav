@@ -58,6 +58,10 @@ func (f *Frame) Pts() int64 {
 	return int64(f.pts)
 }
 
+func (f *Frame) SetPts(i int64) {
+	f.pts = C.int64_t(i)
+}
+
 func (f *Frame) PktPts() int64 {
 	return int64(f.pkt_pts)
 }
