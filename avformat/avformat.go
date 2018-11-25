@@ -64,6 +64,13 @@ const (
 	FF_FDEBUG_TS         = C.FF_FDEBUG_TS
 )
 
+const (
+	AVSEEK_FLAG_ANY      = C.AVSEEK_FLAG_ANY
+	AVSEEK_FLAG_BACKWARD = C.AVSEEK_FLAG_BACKWARD
+	AVSEEK_FLAG_BYTE     = C.AVSEEK_FLAG_BYTE
+	AVSEEK_FLAG_FRAME    = C.AVSEEK_FLAG_FRAME
+)
+
 type File C.FILE
 
 //Allocate and read the payload of a packet and initialize its fields with default values.
