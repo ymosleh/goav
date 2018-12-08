@@ -131,6 +131,10 @@ func (ctx *Context) Inputs() []*Link {
 
 	arr := (*[MAX_ARRAY_SIZE](*Link))(unsafe.Pointer(ctx.inputs))
 
+	if arr == nil {
+		return nil
+	}
+
 	return arr[:ctx.NbInputs()]
 }
 
