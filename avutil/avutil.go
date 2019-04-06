@@ -67,6 +67,7 @@ const (
 
 const (
 	AVERROR_EAGAIN = -(C.EAGAIN)
+	AVERROR_EIO    = -(C.EIO)
 	AVERROR_EOF    = C.AVERROR_EOF
 	AVERROR_EPIPE  = -(C.EPIPE)
 )
