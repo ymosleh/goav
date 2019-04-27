@@ -8,10 +8,13 @@ package avfilter
 	#include <libavfilter/avfilter.h>
 */
 import "C"
+import "unsafe"
 
 //Get a filter definition matching the given name.
 func AvfilterGetByName(n string) *Filter {
-	return (*Filter)(C.avfilter_get_by_name(C.CString(n)))
+	cn := C.CString(n)
+	defer C.free(unsafe.Pointer(cn))
+	return (*Filter)(C.avfilter_get_by_name(cn))
 }
 
 //Register a filter.

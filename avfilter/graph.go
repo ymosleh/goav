@@ -26,12 +26,16 @@ func AvfilterGraphAlloc() *Graph {
 
 //Create a new filter instance in a filter graph.
 func (g *Graph) AvfilterGraphAllocFilter(f *Filter, n string) *Context {
-	return (*Context)(C.avfilter_graph_alloc_filter((*C.struct_AVFilterGraph)(g), (*C.struct_AVFilter)(f), C.CString(n)))
+	cn := C.CString(n)
+	defer C.free(unsafe.Pointer(cn))
+	return (*Context)(C.avfilter_graph_alloc_filter((*C.struct_AVFilterGraph)(g), (*C.struct_AVFilter)(f), cn))
 }
 
 //Get a filter instance identified by instance name from graph.
 func (g *Graph) AvfilterGraphGetFilter(n string) *Context {
-	return (*Context)(C.avfilter_graph_get_filter((*C.struct_AVFilterGraph)(g), C.CString(n)))
+	cn := C.CString(n)
+	defer C.free(unsafe.Pointer(cn))
+	return (*Context)(C.avfilter_graph_get_filter((*C.struct_AVFilterGraph)(g), cn))
 }
 
 //Enable or disable automatic format conversion inside the graph.
@@ -51,32 +55,54 @@ func (g *Graph) AvfilterGraphFree() {
 
 //Add a graph described by a string to a graph.
 func (g *Graph) AvfilterGraphParse(f string, i, o *Input, l int) int {
-	return int(C.avfilter_graph_parse((*C.struct_AVFilterGraph)(g), C.CString(f), (*C.struct_AVFilterInOut)(i), (*C.struct_AVFilterInOut)(o), unsafe.Pointer(&l)))
+	cf := C.CString(f)
+	defer C.free(unsafe.Pointer(cf))
+	return int(C.avfilter_graph_parse((*C.struct_AVFilterGraph)(g), cf, (*C.struct_AVFilterInOut)(i), (*C.struct_AVFilterInOut)(o), unsafe.Pointer(&l)))
 }
 
 //Add a graph described by a string to a graph.
 func (g *Graph) AvfilterGraphParsePtr(f string, i, o **Input, l *int) int {
-	return int(C.avfilter_graph_parse_ptr((*C.struct_AVFilterGraph)(g), C.CString(f), (**C.struct_AVFilterInOut)(unsafe.Pointer(i)), (**C.struct_AVFilterInOut)(unsafe.Pointer(o)), unsafe.Pointer(l)))
+	cf := C.CString(f)
+	defer C.free(unsafe.Pointer(cf))
+	return int(C.avfilter_graph_parse_ptr((*C.struct_AVFilterGraph)(g), cf, (**C.struct_AVFilterInOut)(unsafe.Pointer(i)), (**C.struct_AVFilterInOut)(unsafe.Pointer(o)), unsafe.Pointer(l)))
 }
 
 //Add a graph described by a string to a graph.
 func (g *Graph) AvfilterGraphParse2(f string, i, o **Input) int {
-	return int(C.avfilter_graph_parse2((*C.struct_AVFilterGraph)(g), C.CString(f), (**C.struct_AVFilterInOut)(unsafe.Pointer(i)), (**C.struct_AVFilterInOut)(unsafe.Pointer(o))))
+	cf := C.CString(f)
+	defer C.free(unsafe.Pointer(cf))
+	return int(C.avfilter_graph_parse2((*C.struct_AVFilterGraph)(g), cf, (**C.struct_AVFilterInOut)(unsafe.Pointer(i)), (**C.struct_AVFilterInOut)(unsafe.Pointer(o))))
 }
 
 //Send a command to one or more filter instances.
 func (g *Graph) AvfilterGraphSendCommand(t, cmd, arg, res string, resl, f int) int {
-	return int(C.avfilter_graph_send_command((*C.struct_AVFilterGraph)(g), C.CString(t), C.CString(cmd), C.CString(arg), C.CString(res), C.int(resl), C.int(f)))
+	ct := C.CString(t)
+	defer C.free(unsafe.Pointer(ct))
+	cc := C.CString(cmd)
+	defer C.free(unsafe.Pointer(cc))
+	ca := C.CString(arg)
+	defer C.free(unsafe.Pointer(ca))
+	cr := C.CString(res)
+	defer C.free(unsafe.Pointer(cr))
+	return int(C.avfilter_graph_send_command((*C.struct_AVFilterGraph)(g), ct, cc, ca, cr, C.int(resl), C.int(f)))
 }
 
 //Queue a command for one or more filter instances.
 func (g *Graph) AvfilterGraphQueueCommand(t, cmd, arg string, f int, ts C.double) int {
-	return int(C.avfilter_graph_queue_command((*C.struct_AVFilterGraph)(g), C.CString(t), C.CString(cmd), C.CString(arg), C.int(f), ts))
+	ct := C.CString(t)
+	defer C.free(unsafe.Pointer(ct))
+	cc := C.CString(cmd)
+	defer C.free(unsafe.Pointer(cc))
+	ca := C.CString(arg)
+	defer C.free(unsafe.Pointer(ca))
+	return int(C.avfilter_graph_queue_command((*C.struct_AVFilterGraph)(g), ct, cc, ca, C.int(f), ts))
 }
 
 //Dump a graph into a human-readable string representation.
 func (g *Graph) AvfilterGraphDump(o string) string {
-	return C.GoString(C.avfilter_graph_dump((*C.struct_AVFilterGraph)(g), C.CString(o)))
+	co := C.CString(o)
+	defer C.free(unsafe.Pointer(co))
+	return C.GoString(C.avfilter_graph_dump((*C.struct_AVFilterGraph)(g), co))
 }
 
 //Request a frame on the oldest sink
@@ -89,8 +115,11 @@ func AvfilterGraphCreateFilter(cx **Context, f *Filter, n, a string, o *int, g *
 	ca := (*C.char)(nil)
 	if len(a) > 0 {
 		ca = C.CString(a)
+		defer C.free(unsafe.Pointer(ca))
 	}
-	return int(C.avfilter_graph_create_filter((**C.struct_AVFilterContext)(unsafe.Pointer(cx)), (*C.struct_AVFilter)(f), C.CString(n), ca, unsafe.Pointer(o), (*C.struct_AVFilterGraph)(g)))
+	cn := C.CString(n)
+	defer C.free(unsafe.Pointer(cn))
+	return int(C.avfilter_graph_create_filter((**C.struct_AVFilterContext)(unsafe.Pointer(cx)), (*C.struct_AVFilter)(f), cn, ca, unsafe.Pointer(o), (*C.struct_AVFilterGraph)(g)))
 }
 
 func (g *Graph) AvBuffersrcAddFrameFlags(cx *Context, frame *avutil.Frame, flags int) int {

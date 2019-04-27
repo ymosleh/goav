@@ -92,7 +92,13 @@ func AvfilterConfigLinks(f *Context) int {
 
 //Make the filter instance process a command.
 func AvfilterProcessCommand(f *Context, cmd, arg, res string, l, fl int) int {
-	return int(C.avfilter_process_command((*C.struct_AVFilterContext)(f), C.CString(cmd), C.CString(arg), C.CString(res), C.int(l), C.int(fl)))
+	cc := C.CString(cmd)
+	defer C.free(unsafe.Pointer(cc))
+	ca := C.CString(arg)
+	defer C.free(unsafe.Pointer(ca))
+	cr := C.CString(res)
+	defer C.free(unsafe.Pointer(cr))
+	return int(C.avfilter_process_command((*C.struct_AVFilterContext)(f), cc, ca, cr, C.int(l), C.int(fl)))
 }
 
 //Initialize the filter system.
@@ -103,7 +109,9 @@ func AvfilterRegisterAll() {
 
 //Initialize a filter with the supplied parameters.
 func (ctx *Context) AvfilterInitStr(args string) int {
-	return int(C.avfilter_init_str((*C.struct_AVFilterContext)(ctx), C.CString(args)))
+	ca := C.CString(args)
+	defer C.free(unsafe.Pointer(ca))
+	return int(C.avfilter_init_str((*C.struct_AVFilterContext)(ctx), ca))
 }
 
 //Initialize a filter with the supplied dictionary of options.

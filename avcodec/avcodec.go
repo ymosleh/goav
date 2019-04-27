@@ -251,7 +251,9 @@ func AvcodecFindDecoder(id CodecId) *Codec {
 
 //Find a registered decoder with the specified name.
 func AvcodecFindDecoderByName(n string) *Codec {
-	return (*Codec)(C.avcodec_find_decoder_by_name(C.CString(n)))
+	cn := C.CString(n)
+	defer C.free(unsafe.Pointer(cn))
+	return (*Codec)(C.avcodec_find_decoder_by_name(cn))
 }
 
 //Converts AvChromaLocation to swscale x/y chroma position.
@@ -271,7 +273,9 @@ func AvcodecFindEncoder(id CodecId) *Codec {
 
 //Find a registered encoder with the specified name.
 func AvcodecFindEncoderByName(c string) *Codec {
-	return (*Codec)(C.avcodec_find_encoder_by_name(C.CString(c)))
+	cc := C.CString(c)
+	defer C.free(unsafe.Pointer(cc))
+	return (*Codec)(C.avcodec_find_encoder_by_name(cc))
 }
 
 //Put a string representing the codec tag codec_tag in buf.
@@ -281,7 +285,9 @@ func AvcodecFindEncoderByName(c string) *Codec {
 // }
 
 func AvcodecString(b string, bs int, ctxt *Context, e int) {
-	C.avcodec_string(C.CString(b), C.int(bs), (*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), C.int(e))
+	cb := C.CString(b)
+	defer C.free(unsafe.Pointer(cb))
+	C.avcodec_string(cb, C.int(bs), (*C.struct_AVCodecContext)(unsafe.Pointer(ctxt)), C.int(e))
 }
 
 //Fill Frame audio data and linesize pointers.
@@ -343,7 +349,9 @@ func (d *Descriptor) AvcodecDescriptorNext() *Descriptor {
 }
 
 func AvcodecDescriptorGetByName(n string) *Descriptor {
-	return (*Descriptor)(C.avcodec_descriptor_get_by_name(C.CString(n)))
+	cn := C.CString(n)
+	defer C.free(unsafe.Pointer(cn))
+	return (*Descriptor)(C.avcodec_descriptor_get_by_name(cn))
 }
 
 func AvcodecReceivePacket(avctx *Context, avpkt *Packet) int {

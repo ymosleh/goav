@@ -121,7 +121,11 @@ func AvIntListLengthForSize(e uint, l int, t uint64) uint {
 
 //Open a file using a UTF-8 filename.
 func AvFopenUtf8(p, m string) *File {
-	f := C.av_fopen_utf8(C.CString(p), C.CString(m))
+	cp := C.CString(p)
+	defer C.free(unsafe.Pointer(cp))
+	cm := C.CString(m)
+	defer C.free(unsafe.Pointer(cm))
+	f := C.av_fopen_utf8(cp, cm)
 	return (*File)(f)
 }
 
