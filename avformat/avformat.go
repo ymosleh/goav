@@ -206,6 +206,11 @@ func AvIOOpen(pb **AvIOContext, fi string, flags int) int {
 	return int(C.avio_open((**C.struct_AVIOContext)(unsafe.Pointer(pb)), cfi, C.int(flags)))
 }
 
+//Force flushing of buffered data.
+func AvIOFlush(pb *AvIOContext) {
+	C.avio_flush((*C.struct_AVIOContext)(unsafe.Pointer(pb)))
+}
+
 //Close the resource accessed by the AVIOContext *s, free it and set the pointer pointing to it to NULL.
 func AvIOClosep(pb **AvIOContext) int {
 	return int(C.avio_closep((**C.struct_AVIOContext)(unsafe.Pointer(pb))))

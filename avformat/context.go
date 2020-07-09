@@ -133,6 +133,11 @@ func (s *Context) AvformatSeekFile(si int, mit, ts, mat int64, f int) int {
 	return int(C.avformat_seek_file((*C.struct_AVFormatContext)(s), C.int(si), C.int64_t(mit), C.int64_t(ts), C.int64_t(mat), C.int(f)))
 }
 
+//Discard all internally buffered data.
+func (s *Context) AvformatFlush() int {
+	return int(C.avformat_flush((*C.struct_AVFormatContext)(s)))
+}
+
 //Start playing a network-based stream (e.g.
 func (s *Context) AvReadPlay() int {
 	return int(C.av_read_play((*C.struct_AVFormatContext)(s)))
