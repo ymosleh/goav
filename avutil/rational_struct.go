@@ -2,6 +2,7 @@ package avutil
 
 //#include <libavutil/rational.h>
 import "C"
+import "strconv"
 
 func (r Rational) Num() int {
 	return int(r.num)
@@ -21,6 +22,10 @@ func (r *Rational) SetDen(den int) {
 
 func (r Rational) ToDouble() float64 {
 	return float64(r.Num()) / float64(r.Den())
+}
+
+func (r Rational) String() string {
+	return strconv.Itoa(r.Num()) + "/" + strconv.Itoa(r.Den())
 }
 
 func NewRational(num, den int) Rational {
