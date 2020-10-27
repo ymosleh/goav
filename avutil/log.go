@@ -3,14 +3,19 @@ package avutil
 //#cgo pkg-config: libavutil
 //#include <libavutil/log.h>
 /*
-extern void goAvLogCustomCallback(int level, char* msg);
+extern void goAvLogCustomCallback(int level, char* msg, char* parent);
 
 static inline void avLogCustomCallback(void *avcl, int level, const char *fmt, va_list vl)
 {
 	if (level > av_log_get_level()) return;
+	AVClass* avc = avcl ? *(AVClass **) avcl : NULL;
+	char parent[1024];
+	if (avc) {
+		sprintf(parent, "%p", avcl);
+	}
 	char msg[1024];
 	vsprintf(msg, fmt, vl);
-	goAvLogCustomCallback(level, msg);
+	goAvLogCustomCallback(level, msg, parent);
 }
 static inline void setAvLogCustomCallback()
 {
@@ -46,7 +51,7 @@ func AvLogSetLevel(level int) {
 }
 
 // AvLogCallback represents a log callback
-type AvLogCallback func(level int, msg string)
+type AvLogCallback func(level int, msg, parent string)
 
 var avLogCallback AvLogCallback
 
@@ -57,11 +62,11 @@ func AvLogSetCallback(c AvLogCallback) {
 }
 
 //export goAvLogCustomCallback
-func goAvLogCustomCallback(level C.int, msg *C.char) {
+func goAvLogCustomCallback(level C.int, msg, parent *C.char) {
 	if avLogCallback == nil {
 		return
 	}
-	avLogCallback(int(level), C.GoString(msg))
+	avLogCallback(int(level), C.GoString(msg), C.GoString(parent))
 }
 
 // AvLogResetCallback resets the log callback to the default callback
