@@ -21,10 +21,16 @@ func (r *Rational) SetDen(den int) {
 }
 
 func (r Rational) ToDouble() float64 {
+	if r.Num() == 0 || r.Den() == 0 {
+		return 0
+	}
 	return float64(r.Num()) / float64(r.Den())
 }
 
 func (r Rational) String() string {
+	if r.Num() == 0 || r.Den() == 0 {
+		return "0"
+	}
 	return strconv.Itoa(r.Num()) + "/" + strconv.Itoa(r.Den())
 }
 
