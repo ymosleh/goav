@@ -343,6 +343,10 @@ func AvcodecDescriptorGet(id CodecId) *Descriptor {
 	return (*Descriptor)(C.avcodec_descriptor_get((C.enum_AVCodecID)(id)))
 }
 
+func (d *Descriptor) Name() string {
+	return C.GoString(d.name)
+}
+
 //Iterate over all codec descriptors known to libavcodec.
 func (d *Descriptor) AvcodecDescriptorNext() *Descriptor {
 	return (*Descriptor)(C.avcodec_descriptor_next((*C.struct_AVCodecDescriptor)(d)))

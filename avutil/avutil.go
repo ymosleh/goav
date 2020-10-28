@@ -10,6 +10,7 @@ package avutil
 //#cgo pkg-config: libavutil
 //#include <libavutil/avutil.h>
 //#include <libavutil/channel_layout.h>
+//#include <libavutil/pixdesc.h>
 //#include <stdlib.h>
 //#include <errno.h>
 import "C"
