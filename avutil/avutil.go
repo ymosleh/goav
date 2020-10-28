@@ -138,14 +138,22 @@ func AvGetChannelLayoutNbChannels(channelLayout uint64) int {
 	return int(C.av_get_channel_layout_nb_channels(C.uint64_t(channelLayout)))
 }
 
-func AvGetChannelLayoutString(channelLayout uint64) string {
+func AvGetPixFmtName(pixFmt PixelFormat) string {
+	s := C.av_get_pix_fmt_name((C.enum_AVPixelFormat)(pixFmt))
+	if s == nil {
+		return fmt.Sprintf("unknown pixel format with value %d", pixFmt)
+	}
+	return C.GoString(s)
+}
+
+func AvGetChannelLayoutString(nbChannels int, channelLayout uint64) string {
 	bufSize := C.size_t(MAX_CHANNEL_LAYOUT_STR_LEN)
 	buf := (*C.char)(C.malloc(bufSize))
 	if buf == nil {
 		return fmt.Sprintf("unknown channel layout with code %d", channelLayout)
 	}
 	defer C.free(unsafe.Pointer(buf))
-	C.av_get_channel_layout_string(buf, C.int(bufSize), 0, C.uint64_t(channelLayout))
+	C.av_get_channel_layout_string(buf, C.int(bufSize), C.int(nbChannels), C.uint64_t(channelLayout))
 	return C.GoString(buf)
 }
 
