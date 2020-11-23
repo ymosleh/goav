@@ -3,6 +3,12 @@ package avutil
 //#cgo pkg-config: libavutil
 //#include <libavutil/frame.h>
 //#include <stdlib.h>
+/*
+static inline uint8_t ** dataItem(uint8_t * data, int idx)
+{
+	return (uint8_t **)&data[idx];
+}
+*/
 import "C"
 import "unsafe"
 
@@ -10,8 +16,16 @@ func (f *Frame) Data() *uint8 {
 	return (*uint8)(unsafe.Pointer((*C.uint8_t)(unsafe.Pointer(&f.data))))
 }
 
+func (f *Frame) DataItem(idx int) **uint8 {
+	return (**uint8)(unsafe.Pointer(C.dataItem((*C.uint8_t)(unsafe.Pointer(&f.data)), C.int(idx))))
+}
+
 func (f *Frame) Linesize() int {
 	return int(*(*C.int)(unsafe.Pointer(&f.linesize)))
+}
+
+func (f *Frame) LinesizePtr() *int {
+	return (*int)(unsafe.Pointer((*C.int)(unsafe.Pointer(&f.linesize))))
 }
 
 func (f *Frame) Width() int {

@@ -3,6 +3,7 @@ package avutil
 //#cgo pkg-config: libavutil
 //#include <libavutil/samplefmt.h>
 import "C"
+import "unsafe"
 
 const (
 	AV_SAMPLE_FMT_NONE = int(C.AV_SAMPLE_FMT_NONE)
@@ -25,4 +26,8 @@ const (
 
 func AvGetSampleFmtName(sampleFmt int) string {
 	return C.GoString(C.av_get_sample_fmt_name((C.enum_AVSampleFormat)(sampleFmt)))
+}
+
+func AvSamplesAlloc(data **uint8, linesize *int, nbChannels, nbSamples, sampleFmt, align int) int {
+	return int(C.av_samples_alloc((**C.uint8_t)(unsafe.Pointer(data)), (*C.int)(unsafe.Pointer(linesize)), C.int(nbChannels), C.int(nbSamples), (C.enum_AVSampleFormat)(sampleFmt), C.int(align)))
 }
