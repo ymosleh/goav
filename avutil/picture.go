@@ -33,6 +33,17 @@ func AvImageFillArrays(dstData [8]*uint8, dstLinesize [8]int32, src []uint8,
 	return int(C.av_image_fill_arrays(cData, cLinesize, cSrc, cPixFmt, C.int(width), C.int(height), C.int(align)))
 }
 
+// Copy image in src_data to dst_data. 
+func AvImageCopy(dstData [8]*uint8, dstLinesize [8]int32, srcData [8]*uint8, srcLinesize [8]int32, pixFmt PixelFormat, width, height int ) {
+	cDstData 	 := (**C.uint8_t)(unsafe.Pointer(&dstData[0]))
+	cDstLinesize := (*C.int)(unsafe.Pointer(&dstLinesize[0]))
+	cSrcData 	 := (**C.uint8_t)(unsafe.Pointer(&srcData[0]))
+	cSrcLinesize := (*C.int)(unsafe.Pointer(&cSrcLinesize[0]))
+	cPixFmt      := (C.enum_AVPixelFormat)(pixFmt)
+
+	C.av_image_copy(cDstData, cDstLinesize, cSrcData, cSrcLinesize, cPixFmt, C.int(width), C.int(height))
+}
+
 // Allocate an image with size w and h and pixel format pix_fmt, and fill pointers and linesizes accordingly.
 //
 // The allocated image buffer has to be freed by using AvFreeP(&pointers[0]).
