@@ -38,7 +38,7 @@ func AvImageCopy(dstData [8]*uint8, dstLinesize [8]int32, srcData [8]*uint8, src
 	cDstData 	 := (**C.uint8_t)(unsafe.Pointer(&dstData[0]))
 	cDstLinesize := (*C.int)(unsafe.Pointer(&dstLinesize[0]))
 	cSrcData 	 := (**C.uint8_t)(unsafe.Pointer(&srcData[0]))
-	cSrcLinesize := (*C.int)(unsafe.Pointer(&cSrcLinesize[0]))
+	cSrcLinesize := (*C.int)(unsafe.Pointer(&srcLinesize[0]))
 	cPixFmt      := (C.enum_AVPixelFormat)(pixFmt)
 
 	C.av_image_copy(cDstData, cDstLinesize, cSrcData, cSrcLinesize, cPixFmt, C.int(width), C.int(height))
