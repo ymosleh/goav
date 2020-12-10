@@ -27,7 +27,7 @@ func AvImageFillArrays(dstData **uint8, dstLinesize [4]int32, src []uint8,
 	pixFmt PixelFormat, width, height, align int) int {
 	// cData := (**C.uint8_t)(unsafe.Pointer(&dstData[0]))
 	cData := (**C.uint8_t)(unsafe.Pointer(dstData))
-	cLinesize := (*C.int)(unsafe.Pointer(dstLinesize))
+	cLinesize := (*C.int)(unsafe.Pointer(&dstLinesize[0]))
 	cSrc := (*C.uint8_t)(unsafe.Pointer(&src[0]))
 	cPixFmt := (C.enum_AVPixelFormat)(pixFmt)
 
@@ -48,13 +48,13 @@ func AvImageFillArrays(dstData **uint8, dstLinesize [4]int32, src []uint8,
 // }
 
 // Copy image in src_data to dst_data. 
-func AvImageCopy(dstData **uint8, dstLinesize [4]int32, srcData **uint8, srcLinesize [4]int32, pixFmt PixelFormat, width, height int ) {
+func AvImageCopy(dstData **uint8, dstLinesize *int32, srcData **uint8, srcLinesize [4]int32, pixFmt PixelFormat, width, height int ) {
 	// cDstData 	 := (**C.uint8_t)(unsafe.Pointer(&dstData[0]))
 	cDstData 	 := (**C.uint8_t)(unsafe.Pointer(dstData))
 	cDstLinesize := (*C.int)(unsafe.Pointer(dstLinesize))
 	cSrcData 	 := (**C.uint8_t)(unsafe.Pointer(srcData))
 	// cSrcData 	 := (**C.uint8_t)(unsafe.Pointer(&srcData[0]))
-	cSrcLinesize := (*C.int)(unsafe.Pointer(srcLinesize))
+	cSrcLinesize := (*C.int)(unsafe.Pointer(&srcLinesize[0]))
 	cPixFmt      := (C.enum_AVPixelFormat)(pixFmt)
 
 	C.av_image_copy(cDstData, cDstLinesize, cSrcData, cSrcLinesize, cPixFmt, C.int(width), C.int(height))
