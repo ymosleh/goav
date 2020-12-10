@@ -22,55 +22,55 @@ func AvImageGetBufferSize(pixFmt PixelFormat, width, height, align int) int {
 	return int(C.av_image_get_buffer_size((C.enum_AVPixelFormat)(pixFmt), C.int(width), C.int(height), C.int(align)))
 }
 
-//Setup the data pointers and linesizes based on the specified image parameters and the provided array.
-func AvImageFillArrays(dstData **uint8, dstLinesize [4]int32, src []uint8,
-	pixFmt PixelFormat, width, height, align int) int {
-	// cData := (**C.uint8_t)(unsafe.Pointer(&dstData[0]))
-	cData := (**C.uint8_t)(unsafe.Pointer(dstData))
-	cLinesize := (*C.int)(unsafe.Pointer(&dstLinesize[0]))
-	cSrc := (*C.uint8_t)(unsafe.Pointer(&src[0]))
-	cPixFmt := (C.enum_AVPixelFormat)(pixFmt)
-
-	return int(C.av_image_fill_arrays(cData, cLinesize, cSrc, cPixFmt, C.int(width), C.int(height), C.int(align)))
-}
-
-
 // //Setup the data pointers and linesizes based on the specified image parameters and the provided array.
-// func AvImageFillArrays(dstData **uint8, dstLinesize *int32, src []uint8,
+// func AvImageFillArrays(dstData **uint8, dstLinesize [4]int32, src []uint8,
 // 	pixFmt PixelFormat, width, height, align int) int {
 // 	// cData := (**C.uint8_t)(unsafe.Pointer(&dstData[0]))
 // 	cData := (**C.uint8_t)(unsafe.Pointer(dstData))
-// 	cLinesize := (*C.int)(unsafe.Pointer(dstLinesize))
+// 	cLinesize := (*C.int)(unsafe.Pointer(&dstLinesize[0]))
 // 	cSrc := (*C.uint8_t)(unsafe.Pointer(&src[0]))
 // 	cPixFmt := (C.enum_AVPixelFormat)(pixFmt)
 
 // 	return int(C.av_image_fill_arrays(cData, cLinesize, cSrc, cPixFmt, C.int(width), C.int(height), C.int(align)))
 // }
 
-// Copy image in src_data to dst_data. 
-func AvImageCopy(dstData **uint8, dstLinesize *int32, srcData **uint8, srcLinesize [4]int32, pixFmt PixelFormat, width, height int ) {
-	// cDstData 	 := (**C.uint8_t)(unsafe.Pointer(&dstData[0]))
-	cDstData 	 := (**C.uint8_t)(unsafe.Pointer(dstData))
-	cDstLinesize := (*C.int)(unsafe.Pointer(dstLinesize))
-	cSrcData 	 := (**C.uint8_t)(unsafe.Pointer(srcData))
-	// cSrcData 	 := (**C.uint8_t)(unsafe.Pointer(&srcData[0]))
-	cSrcLinesize := (*C.int)(unsafe.Pointer(&srcLinesize[0]))
-	cPixFmt      := (C.enum_AVPixelFormat)(pixFmt)
 
-	C.av_image_copy(cDstData, cDstLinesize, cSrcData, cSrcLinesize, cPixFmt, C.int(width), C.int(height))
+//Setup the data pointers and linesizes based on the specified image parameters and the provided array.
+func AvImageFillArrays(dstData **uint8, dstLinesize *int, src *uint8,
+	pixFmt PixelFormat, width, height, align int) int {
+	// cData := (**C.uint8_t)(unsafe.Pointer(&dstData[0]))
+	cData := (**C.uint8_t)(unsafe.Pointer(dstData))
+	cLinesize := (*C.int)(unsafe.Pointer(dstLinesize))
+	cSrc := (*C.uint8_t)(unsafe.Pointer(src))
+	cPixFmt := (C.enum_AVPixelFormat)(pixFmt)
+
+	return int(C.av_image_fill_arrays(cData, cLinesize, cSrc, cPixFmt, C.int(width), C.int(height), C.int(align)))
 }
+
 // // Copy image in src_data to dst_data. 
-// func AvImageCopy(dstData **uint8, dstLinesize *int32, srcData **uint8, srcLinesize *int32, pixFmt PixelFormat, width, height int ) {
+// func AvImageCopy(dstData **uint8, dstLinesize *int32, srcData **uint8, srcLinesize [4]int32, pixFmt PixelFormat, width, height int ) {
 // 	// cDstData 	 := (**C.uint8_t)(unsafe.Pointer(&dstData[0]))
 // 	cDstData 	 := (**C.uint8_t)(unsafe.Pointer(dstData))
 // 	cDstLinesize := (*C.int)(unsafe.Pointer(dstLinesize))
 // 	cSrcData 	 := (**C.uint8_t)(unsafe.Pointer(srcData))
 // 	// cSrcData 	 := (**C.uint8_t)(unsafe.Pointer(&srcData[0]))
-// 	cSrcLinesize := (*C.int)(unsafe.Pointer(srcLinesize))
+// 	cSrcLinesize := (*C.int)(unsafe.Pointer(&srcLinesize[0]))
 // 	cPixFmt      := (C.enum_AVPixelFormat)(pixFmt)
 
 // 	C.av_image_copy(cDstData, cDstLinesize, cSrcData, cSrcLinesize, cPixFmt, C.int(width), C.int(height))
 // }
+// Copy image in src_data to dst_data. 
+func AvImageCopy(dstData **uint8, dstLinesize *int, srcData **uint8, srcLinesize *int, pixFmt PixelFormat, width, height int ) {
+	// cDstData 	 := (**C.uint8_t)(unsafe.Pointer(&dstData[0]))
+	cDstData 	 := (**C.uint8_t)(unsafe.Pointer(dstData))
+	cDstLinesize := (*C.int)(unsafe.Pointer(dstLinesize))
+	cSrcData 	 := (**C.uint8_t)(unsafe.Pointer(srcData))
+	// cSrcData 	 := (**C.uint8_t)(unsafe.Pointer(&srcData[0]))
+	cSrcLinesize := (*C.int)(unsafe.Pointer(srcLinesize))
+	cPixFmt      := (C.enum_AVPixelFormat)(pixFmt)
+
+	C.av_image_copy(cDstData, cDstLinesize, cSrcData, cSrcLinesize, cPixFmt, C.int(width), C.int(height))
+}
 
 // Allocate an image with size w and h and pixel format pix_fmt, and fill pointers and linesizes accordingly.
 //
